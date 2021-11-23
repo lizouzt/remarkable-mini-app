@@ -1,0 +1,1 @@
+<view class="mclass i-grid"><slot></slot></view>

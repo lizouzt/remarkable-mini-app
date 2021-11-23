@@ -1,0 +1,129 @@
+page, .container{
+  background-color: #02a9f1;
+}
+
+.hn_bar{
+  padding: 0 2vw;
+  justify-content: flex-start;
+}
+.hn_logo{
+  height: 36px;
+  width: 36px;
+  border-radius: 36px;
+  overflow: hidden;
+}
+.hn_logo image{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hn_ctl{
+  justify-content: space-around;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.showBg{
+  background-color: white;
+  color: #333;
+}
+
+/**
+ * Top head photo
+ */
+.f-head{
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.f-head image{
+  height: 46vw;
+  width: 92vw;
+  margin: 0 auto;
+  display: block;
+  animation: brightness 3s linear 1;
+  filter: contrast(110%) brightness(150%);
+}
+
+.fh-text{
+  position: absolute;
+  font-size: 64px;
+  color: transparent;
+  text-shadow: 0px 0px 1em #fff ease-in-out;
+  left: 20%;
+  top: 26%;
+  opacity: .6;
+  filter: blur(0.01em);
+  -webkit-filter: blur(0.01em);
+  /*animation: blink 1s infinite linear;*/
+  -webkit-text-fill-color: transparent;
+}
+.f-clock{
+  margin-bottom: 4vw;
+}
+@keyframes brightness {
+  0% {
+    filter: contrast(30%) brightness(20%);
+  }
+  85% {
+    filter: contrast(30%) brightness(20%);
+  }
+  86% {
+    filter: contrast(100%) brightness(100%);
+  }
+  89% {
+    filter: contrast(20%) brightness(20%);
+  }
+  91% {
+    filter: contrast(100%) brightness(100%);
+  }
+  93% {
+    filter: contrast(30%) brightness(30%);
+  }
+  95% {
+    filter: contrast(40%) brightness(40%);
+  }
+  97% {
+    filter: contrast(100%) brightness(100%);
+  }
+  100% {
+    filter: contrast(110%) brightness(180%);
+  }
+}
+
+@keyframes light {
+  0% {
+    opacity: 1
+  }
+  100% {
+    opacity: .6
+  }
+}
+
+/*** header ***/
+
+.img_list {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 2vw;
+  margin: 0 2vw;
+  width: 92vw;
+  column-count: 2;
+  column-gap: 2vw;
+}
+
+.img_item{
+  margin-bottom: 1vw;
+  display: block;
+  overflow: hidden;
+}
+
+.img_item image{
+  background-color: #eaeaea;
+  border-radius: 2vw;
+  width: 100%;
+}

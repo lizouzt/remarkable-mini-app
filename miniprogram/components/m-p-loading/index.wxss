@@ -1,0 +1,8 @@
+.m-p-loading{
+    padding: 118px 0;
+    text-align: center;
+}
+.m-p-img{
+    height: 100px;
+    width: 100px;
+}

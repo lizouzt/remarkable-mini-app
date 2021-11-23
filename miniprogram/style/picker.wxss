@@ -1,0 +1,37 @@
+.cc-picker{
+  padding: 7px 15px;
+  color: #495060;
+  background-color: white;
+  position: relative;
+  overflow: hidden;
+}
+.cc-p-t{
+  color: #495060;
+  min-width: 78px;
+  padding-right: 10px;
+}
+.cc-p-p{
+  flex: 1;
+  line-height: 1.6;
+  padding: 4px 0;
+  min-height: 22px;
+  height: auto;
+  font-size: 14px;
+  text-align: right;
+}
+.cc-picker:after{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  transform: scale(.5);
+  transform-origin: 0 0;
+  pointer-events: none;
+  box-sizing: border-box;
+  border: 0 solid #e9eaec;
+  border-bottom-width: 1px;
+  left: 15px;
+  right: 0;
+}

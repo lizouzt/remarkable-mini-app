@@ -1,0 +1,9 @@
+<view class="m-mask mclass-mask {{ active ? 'm-mask-show' : '' }}" bindtap="toggle" catchtouchmove="preventTouchMove"></view>
+<view class="m-notify mclass m-drawer {{ active ? 'm-drawer-show' : '' }}" catchtouchmove="preventTouchMove">
+    <view class="mn-close" bindtap="toggle">
+        <mIcon type="close"/>
+    </view>
+    <scroll-view class="mn-wrap" scroll-y="{{true}}">
+        <slot></slot>
+    </scroll-view>
+</view>

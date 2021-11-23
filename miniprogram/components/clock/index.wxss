@@ -1,0 +1,18 @@
+.c-clock{
+  height: 6vh;
+  padding: .5vh 7.6vw;
+}
+
+.cc-craft{
+  height: 5.8vh;
+  border-radius: 5.8vh;
+  border: 3px solid #fff;
+  box-shadow: 0 0 26px #f10db3, 0 0 36px #d610a0 inset;
+  width: 100%;
+  text-align: center;
+  line-height: 5.8vh;
+  color: #fff;
+  letter-spacing: 4px;
+  font-weight: 900;
+  text-shadow: -3px 3px 3px #000000, 0 0 2px #f10db3;
+}

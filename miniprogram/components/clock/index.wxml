@@ -1,0 +1,5 @@
+<view class="c-clock">
+  <view class="cc-craft">
+    {{ time }}
+  </view>
+</view>

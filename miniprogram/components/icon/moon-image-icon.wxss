@@ -1,0 +1,11 @@
+.i-img{
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+    display: inline-block;
+    line-height: 1;
+}
+.i-img-img{
+    height: 100%;
+    width: 100%;
+}

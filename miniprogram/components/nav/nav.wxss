@@ -1,0 +1,137 @@
+/* components/nav/nav.wxss */
+
+@import "/Mango/Animation/mango.wxss";
+
+.nav {
+    width: 100vw;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: white;
+    z-index: 999;
+
+    display: flex;
+}
+
+.show {
+    opacity: 1;
+}
+
+.hide {
+    opacity: 0;
+}
+
+.body {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 46px;
+    position: absolute;
+
+    line-height: 46px;
+    text-align: center;
+    font-weight: 300;
+    font-size: 29rpx;
+}
+.tmargin{
+    margin-left: 100rpx   
+}
+.tmargin .bwrap{
+    margin-right: 100rpx
+}
+.elps-1{
+    word-break: keep-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    white-space: nowrap;
+}
+
+/**
+ * animation
+ */
+.big-animation {
+    animation-name: big-animation;
+    -webkit-animation-name: big-animation;
+    animation-duration: 1s;
+    -webkit-animation-duration: 1s;
+    animation-timing-function: ease;
+    -webkit-animation-timing-function: ease;
+    transform-origin: top left;
+    -webkit-transform-origin: top left;
+}
+
+.small-animation {
+    animation-name: small-animation;
+    -webkit-animation-name: small-animation;
+    animation-duration: 1s;
+    -webkit-animation-duration: 1s;
+    animation-timing-function: ease;
+    -webkit-animation-timing-function: ease;
+    transform-origin: top left;
+    -webkit-transform-origin: top left;
+}
+
+@keyframes big-animation {
+    from {
+        transform: translateY(0)
+    }
+
+    to {
+        transform: translateY(60)
+    }
+}
+
+@-webkit-keyframes big-animation {
+    from {
+        transform: translateY(0);
+        -webkit-transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(60);
+        -webkit-transform: translateY(60);
+    }
+}
+
+@keyframes small-animation {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(0.5);
+    }
+}
+
+@-webkit-keyframes small-animation {
+    from {
+        transform: scale(1);
+        -webkit-transform: scale(1);
+    }
+
+    to {
+        transform: scale(0.5);
+        -webkit-transform: scale(0.5);
+    }
+}
+
+/* 返回 */
+.back {
+    width: 100rpx;
+    height: 46px;
+    position: absolute;
+    left: 20rpx;
+    bottom: 0;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.back .image {
+    width: 40rpx;
+    height: 40rpx;
+}
+ 

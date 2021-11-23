@@ -1,0 +1,61 @@
+[class^="sk-"], [class*=" sk-"]{
+  visibility: hidden
+}
+.skready [class^="sk-"], .skready [class*=" sk-"]{
+  visibility: visible
+}
+
+
+.m-sk{
+  box-shadow: 0 0 2px #ececec;
+  border-radius: 10px;
+  margin: 12px;
+  overflow: hidden;
+  background: #d6dcdc;
+  background-image: linear-gradient(90deg,rgba(255, 255, 255, 0.15) 25%, transparent 25%);
+  background-size: 20rem 20rem;
+  flex: 1 1;
+  animation: shine 1s linear infinite
+}
+.m-sk.rect{
+  height: 20vw
+}
+.m-sk.rect10{
+  height: 10vw
+}
+.m-sk.rect30{
+  height: 30vw
+}
+.m-sk.rect40{
+  height: 40vw
+}
+.m-sk.long2{
+  height: 2vw
+}
+.m-sk.long5{
+  height: 5vw
+}
+.m-sk.long9{
+  height: 9vw
+}
+.m-sk.square{
+  height: 26vw;
+  width: 26vw;
+  display: inline-block;
+  margin: 6px;
+}
+.m-sk.circle{
+  height: 13vw;
+  width: 13vw;
+  border-radius: 100%;
+  display: inline-block;
+}
+
+@keyframes shine {
+  from {
+      background-position: 0 0 ;
+  }
+  to {
+      background-position: 20rem 0;
+  }
+}

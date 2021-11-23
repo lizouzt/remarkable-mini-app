@@ -1,0 +1,18 @@
+<!--components/nav/nav.wxml-->
+<view 
+  class="nav mango {{ alwaysShow ? '' : first ? 'hide' : (show ? 'fade-in show' : 'fade-out hide') }}" 
+  style="height: {{ navHeight }}px; background: {{ bgColor }};">
+    <view class="body {{back ? 'tmargin' : ''}}">
+        <view class="bwrap" wx:if="{{title}}">
+          <view class="elps-1">
+            {{ title }}
+          </view>
+        </view>
+        <view class="bwrap" wx:else>
+          <slot></slot>
+        </view>
+    </view>
+    <view bindtap="goBack" class="back" wx:if="{{ back }}">
+        <image class="image" src="images/back.png"></image>
+    </view>
+</view>

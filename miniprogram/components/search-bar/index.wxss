@@ -1,0 +1,81 @@
+.weui-search-bar {
+  position: relative;
+  padding: 8px;
+  display: flex;
+  box-sizing: border-box;
+  -webkit-text-size-adjust: 100%;
+  align-items: center
+}
+
+.sb-i-icon, .sb-i-clear {
+  height: 28px;
+  width: 28px;
+}
+.sb-i-clear{
+  transition: opacity .2s ease;
+  opacity: 1
+}
+.hide{
+  pointer-events: none;
+  opacity: 0
+}
+
+.sb__form {
+  position: relative;
+  border-radius: 16px;
+  background: #eee;
+  width: 80%;
+  transition: width .2s ease-in-out;
+}
+.focus{
+  width: 100%
+}
+
+.sb__box {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 1
+}
+
+.sb__input {
+  height: 30px;
+  line-height: 30px;
+  font-size: 12px;
+  flex: 1 0;
+  caret-color: #1989fa
+}
+
+.weui-icon-clear icon {
+  vertical-align: middle
+}
+
+.weui-icon-clear:after {
+  content: "";
+  height: 100%;
+  vertical-align: middle;
+  display: inline-block;
+  width: 0;
+  overflow: hidden
+}
+
+.weui-search-bar__label {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.5);
+  border-radius: 16px;
+  background: #eee;
+  line-height: 32px
+}
+
+.weui-search-bar__cancel-btn {
+  margin-left: 8px;
+  line-height: 32px;
+  color: #576B95;
+  white-space: nowrap
+}

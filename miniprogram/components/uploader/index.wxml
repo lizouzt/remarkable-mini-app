@@ -1,0 +1,52 @@
+<view>
+  <view class="{{mclass}} uploader">
+    <view class="upi-key">{{ video ? '上传视频' : '上传照片' }}</view>
+    <view class="upi-list" wx:if="{{!multiple && !video}}">
+      <view 
+        bindtap="onItemTap"
+        class="upi-item" 
+        data-index="{{index}}"
+        wx:for="{{itemList}}" 
+        wx:key="index">
+        <video 
+          wx:if="{{video}}" 
+          class="image" 
+          src="{{item}}" 
+          controls="{{false}}" />
+        <image 
+          wx:else 
+          class="image" 
+          src="{{item}}"/>
+      </view>
+    </view>
+    <mButton 
+      mclass="upi-btn" 
+      width="39"
+      margin="0"
+      type="ghost"
+      bindtap="onUpload"
+      loading="{{isUploading}}">
+      <mIcon wx:if="{{!isUploading}}" mclass="upi-bi" type="add" size="27" color="gray"/>
+    </mButton>
+  </view>
+  <view class="upi-list" wx:if="{{multiple || video}}">
+    <view class="upi-list-wrap">
+      <view 
+        bindtap="onItemTap"
+        class="upi-item" 
+        data-index="{{index}}"
+        wx:for="{{itemList}}" 
+        wx:key="index">
+        <video 
+          wx:if="{{video}}" 
+          class="image" 
+          src="{{item}}" 
+          controls="{{false}}" />
+        <image 
+          wx:else 
+          class="image" 
+          src="{{item}}"/>
+      </view>
+    </view>
+  </view>
+</view>

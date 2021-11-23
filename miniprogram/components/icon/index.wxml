@@ -1,0 +1,16 @@
+<block wx:if="{{ customMode }}">
+    <view class="mclass i-moon {{ 'i-' +  type }}" 
+        style="font-size: {{ size }}px; font-weight: {{ weight }}; {{ color ? 'color:' + color : '' }}">
+    </view>
+</block>
+<block wx:elif="{{ imageMode }}">
+    <view class="mclass i-img"
+        style="width: {{ size }}px; height: {{ size }}px;">
+        <image class="i-img-img" src="/images/i-img/{{ type }}.png" aria-label="图标 {{type}}"/>
+    </view>
+</block>
+<block wx:else>
+    <view class="mclass i-icon {{ type === '' ? '' : 'i-icon-' +  type }}" 
+        style="font-size: {{ size }}px; font-weight: {{ weight }}; {{ color ? 'color:' + color : '' }}">
+    </view>
+</block>

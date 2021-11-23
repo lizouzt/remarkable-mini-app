@@ -1,0 +1,66 @@
+<block>
+    <button class="mclass m-share-top" 
+        hover-class="m-share-top-hover"
+        plain="true"
+        open-type="{{ needChoice ? '' : 'share' }}"
+        bindtap="onShareTap">
+        <mIcon type="financial_fill" size="10"/>
+        <text>{{ title }}</text>
+    </button>
+    
+    <block wx:if="{{ needChoice }}">
+        <mActionSheet
+            showCancel
+            direction="row"
+            visible="{{ panelVisible }}"
+            actions="{{ actions }}" 
+            bind:cancel="handleCancel" 
+            bind:click="handleClickItem" 
+            mask-closable="{{ true }}">
+        </mActionSheet>
+
+        <view class="mst-drawer-mask {{ drawerVisible ? 'mst-drawer-mask-show' : '' }}" 
+            bindtap="handleClickMask"></view>
+        <view class="mst-drawer-container {{ drawerVisible ? 'mst-drawer-show' : '' }}">
+            <view class="mst-dc-header" bindtap="handleClickMask">
+                <mIcon type="close" size="14"/>
+            </view>
+            <view class="mst-dc-content">
+                <view wx:if="{{ !shareImage }}" class="mst-dc-loading">
+                    <view class="mst-loader"></view>
+                    <text>正在生成海报</text>
+                </view>
+                <view class="mst-dc-image" style="height: {{0.70*imageSize.height}}px">
+                    <image src="{{ shareImage.img }}"/>
+                </view>
+            </view>
+            <view class="mst-dc-footer">
+                <view class="mst-dc-fw">
+                    <mButton shape="circle" 
+                        type="success"
+                        border="{{false}}"
+                        loading="{{saving}}"
+                        bind:click="saveQRCode">
+                        下载二维码
+                    </mButton>
+                    <mButton shape="circle" 
+                        type="success"
+                        border="{{false}}"
+                        loading="{{saving}}"
+                        bind:click="saveImage">
+                        下载推广图
+                    </mButton>
+                </view>
+                <text>到相册选取图片分享朋友圈</text>
+                <mButton wx:if="{{reAuth}}"
+                    mclass="auth-btn"
+                    size="small"
+                    type="primary"
+                    inline="{{true}}"
+                    open-type="openSetting">
+                    点击重新授权
+                </mButton>
+            </view>
+        </view>
+    </block>
+</block>

@@ -1,0 +1,48 @@
+{
+  "pages": [
+    "pages/mine/index",
+    "pages/list/index",
+    "pages/index/index",
+    "pages/webpage/index"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "reMarkable | 文件管理",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "selectedColor": "#000000",
+    "color": "#888888",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "./images/tupian.png",
+        "selectedIconPath": "./images/tupiantianchong.png"
+      },
+      {
+        "pagePath": "pages/list/index",
+        "text": "管理",
+        "iconPath": "./images/shipin.png",
+        "selectedIconPath": "./images/shipintianchong.png"
+      },
+      {
+        "pagePath": "pages/mine/index",
+        "text": "我的",
+        "iconPath": "./images/rili.png",
+        "selectedIconPath": "./images/rilitianchong.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "usingComponents": {
+    "mSkeleton": "/components/skeleton/index",
+    "mButton": "components/button/index",
+    "mIcon": "components/icon/index",
+    "mToast": "/components/toast/toast",
+    "mNav": "/components/nav/nav"
+  }
+}

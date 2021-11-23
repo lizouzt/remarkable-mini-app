@@ -1,0 +1,73 @@
+.h-abstracts{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.ha-item{
+  height: 26vw;
+  width: 26vw;
+  border-radius: 8px;
+  text-align: center;
+  padding: 2vw;
+  box-sizing: border-box;
+  position: relative;
+  box-shadow: 0 2px 4px #ccc;
+  color: #1989fa;
+  border: 1rpx solid #1989fa60;
+}
+
+.ha-item > view:nth-child(1) {
+  line-height: 20vw;
+  font-size: 32px;
+  font-weight: 900
+}
+.ha-item > small{
+  font-size: 10px;
+  font-weight: 400;
+  position: absolute;
+  top: 60%;
+  right: 6px
+}
+.ha-item mIcon{
+  display: inline;
+}
+.ha-ratio{
+  position: absolute;
+  top: 0;
+  left: 6px
+}
+.ha-ratio view{
+  display: inline;
+  font-size: 11px;
+  font-weight: 900
+}
+.ha-ratio small{
+  display: inline;
+  font-size: 10px
+}
+
+.ha-item > view:nth-child(2) {
+  font-size: 10px;
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  max-width: 80%;
+  white-space: pre-line;
+  text-align: right;
+}
+
+.ha-4 .ha-item{
+  height: 40vw;
+  width: 40vw;
+  float: left;
+  margin-bottom: 3vw;
+}
+.ha-4 .m-sk{
+  height: 40vw;
+  width: 40vw;
+  float: left;
+}
+.ha-4 .ha-item > view:nth-child(1){
+  line-height: 36vw
+}

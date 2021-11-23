@@ -1,0 +1,148 @@
+.i-btn {
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    white-space: nowrap;
+    user-select: none;
+    font-size: 14px;
+    border-radius: 2px;
+    border: 0 !important;
+    position: relative;
+    text-decoration: none;
+    height: 40px;
+    line-height: 24px;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+    background: #fff !important;
+    color: #495060 !important;
+    margin: 8px;
+}
+.i-qiye{
+    line-height: 40px;
+}
+
+.i-btn-hover {
+    opacity: 0.9;
+}
+
+.i-btn-large {
+    height: 46px;
+    line-height: 46px;
+}
+
+.i-btn-small {
+    height: 28px;
+    line-height: 28px;
+    font-size: 12px;
+    padding: 0 10px;
+    margin: 4px;
+}
+
+.i-btn-circle {
+    border-radius: 40px;
+}
+
+.i-btn-large.i-btn-circle {
+    border-radius: 46px;
+}
+
+.i-btn-small.i-btn-circle {
+    border-radius: 28px;
+}
+.i-btn-small .i-btn-loading-inner{
+    margin-right: 2px;
+    height: 10px;
+    width: 10px;
+}
+
+.i-btn-primary {
+    color: #fff !important;
+    background: #1989fa !important;
+}
+
+.i-btn-ghost {
+    color: #fff !important;
+    background: #fff !important;
+    color: #495060 !important;
+}
+
+.i-btn-success {
+    color: #fff !important;
+    background: #9ac035 !important;
+}
+
+.i-btn-warning {
+    color: #fff !important;
+    background: #f90 !important;
+}
+
+.i-btn-error {
+    color: #fff !important;
+    background: #ed3f14 !important;
+}
+
+.i-btn-info {
+    color: #fff !important;
+    background: #2db7f5 !important;
+}
+
+.i-btn-loading {
+    opacity: 0.6;
+}
+
+.i-btn-loading-inner {
+    display: inline-block;
+    margin-right: 6px;
+    vertical-align: middle;
+    width: 14px;
+    height: 14px;
+    background: 0 0;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    border-color: #fff #fff #fff transparent;
+    animation: btn-spin 0.6s linear;
+    animation-iteration-count: infinite;
+}
+
+.i-btn-ghost .i-btn-loading-inner{
+    border: 2px solid #9ac035;
+    border-color: #9ac035 #9ac035 #9ac035 transparent;
+}
+
+.i-btn-disabled {
+    color: #bbbec4 !important;
+    background: #f7f7f7 !important;
+}
+
+.i-btn-inline {
+    display: inline-block;
+}
+
+@keyframes btn-spin {
+    0% {
+        transform: rotate(0);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.i-btn-nb{
+    box-shadow: none;
+}
+
+.i-btn-np{
+    padding-left: 0;
+    padding-right: 0;
+}
+.i-btn-nm{
+    margin: 0;
+}
+
+.i-btn-long {
+    border-radius: 0;
+    margin: 0;
+    box-shadow: none;
+}

@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "Uploader": "../../components/uploader/index"
+  }
+}

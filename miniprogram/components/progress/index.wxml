@@ -1,0 +1,11 @@
+<view class="mclass i-progress i-progress-{{ status }} {{ !hideInfo ? 'i-progress-show-info' : '' }}">
+    <view class="i-progress-outer">
+        <view class="i-progress-inner" style="height: {{strokeWidth}}px">
+            <view wx:if="{{showBlink}}" class="i-progress-bg" style="width: {{percent}}%;height: {{strokeWidth}}px"></view>
+        </view>
+    </view>
+    <view class="tipclass i-progress-tip" wx:if="{{ tip }}">{{ tip }}</view>
+    <view class="textclass i-progress-text" wx:if="{{ !hideInfo }}">
+        <view class="i-progress-text-inner">{{ percent }}%</view>
+    </view>
+</view>

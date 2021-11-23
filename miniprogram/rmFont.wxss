@@ -1,0 +1,12 @@
+@font-face {
+  font-family: "remarkable";
+  src: url('https://gbuy.oss-cn-shanghai.aliyuncs.com/fonts/BigNinereMarkablePortraitWebMed.ttf') format('ttf'), url('https://gbuy.oss-cn-shanghai.aliyuncs.com/fonts/BigNinereMarkablePortraitWebMed.woff') format('woff')
+}
+
+.mf{
+  font-family: "remarkable";
+  font-weight: 600;
+  font-style: normal;
+  font-size: 2rem;
+  margin: 0px;
+}

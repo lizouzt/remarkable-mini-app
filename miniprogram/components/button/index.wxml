@@ -1,0 +1,40 @@
+<block wx:if="{{ formType == 'submit' }}">
+    <form report-submit bindsubmit="bindsubmit" report-submit-timeout="{{400}}">
+        <button
+            class="mclass i-btn {{ isQiYe ? 'i-qiye' : '' }} {{ long ? 'i-btn-long' : '' }} {{ 'i-btn-' + size }} {{ 'i-btn-' + type }} {{ 'i-btn-' + shape }} {{ loading ? 'i-btn-loading' : '' }} {{ disabled ? 'i-btn-disabled' : ''}} {{ inline ? 'i-btn-inline' : '' }} {{ border ? '' : 'i-btn-nb' }} {{ padding ? '' : 'i-btn-np' }} {{ margin ? '' : 'i-btn-nm' }}"
+            style="{{style}}"
+            disabled="{{disabled}}"
+            hover-class="i-btn-hover"
+            form-type="submit"
+            plain="true">
+            <view class="i-btn-loading-inner" wx:if="{{loading}}"></view>
+            <slot></slot>
+        </button>
+    </form>
+</block>
+<block wx:else>
+    <button
+        class="mclass i-btn {{ isQiYe ? 'i-qiye' : '' }} {{ long ? 'i-btn-long' : '' }} {{ 'i-btn-' + size }} {{ 'i-btn-' + type }} {{ 'i-btn-' + shape }} {{ loading ? 'i-btn-loading' : '' }} {{ disabled ? 'i-btn-disabled' : ''}} {{ inline ? 'i-btn-inline' : '' }} {{ border ? '' : 'i-btn-nb' }} {{ padding ? '' : 'i-btn-np' }} {{ margin ? '' : 'i-btn-nm' }}"
+        style="{{style}}"
+        disabled="{{disabled}}"
+        hover-class="i-btn-hover"
+        bindtap="handleTap"
+        open-type="{{ openType }}"
+        app-parameter="{{ appParameter }}"
+        hover-stop-propagation="{{ hoverStopPropagation }}"
+        hover-start-time="{{ hoverStartTime }}"
+        hover-stay-time="{{ hoverStayTime }}"
+        session-from="{{ sessionFrom }}"
+        send-message-title="{{ sendMessageTitle }}"
+        send-message-path="{{ sendMessagePath }}"
+        send-message-img="{{ sendMessageImg }}"
+        show-message-card="{{ showMessageCard }}"
+        bindcontact="bindcontact"
+        bindgetuserinfo="bindgetuserinfo"
+        bindgetphonenumber="bindgetphonenumber"
+        binderror="binderror"
+        plain="true">
+        <view class="i-btn-loading-inner" wx:if="{{loading}}"></view>
+        <slot></slot>
+    </button>
+</block>

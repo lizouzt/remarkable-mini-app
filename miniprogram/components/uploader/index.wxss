@@ -1,0 +1,60 @@
+.uploader {
+  background-color: #fff;
+  height: 39px;
+  padding: 7px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.upi-key{
+  flex: 88px 0 0;
+}
+
+.upi-list{
+  flex: 1 1;
+  width: 100%;
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+
+.upi-btn{
+  flex: 27px 0 0;
+  padding: 6px;
+  box-shadow: none!important;
+}
+
+.upi-bi{
+  pointer-events: none;
+}
+
+.upi-item{
+  width: 39px;
+  height: 39px;
+  float: left;
+  margin-right: 6px;
+}
+
+.upi-item .image{
+  width: 100%;
+  height: 100%;
+}
+
+.upi-list-wrap{
+  overflow: hidden;
+  width: 100%;
+}
+
+.upi-list-wrap .upi-item{
+  width: 19.5vw;
+  height: 19.5vw;
+  margin: 1vw;
+}
+
+.m-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+

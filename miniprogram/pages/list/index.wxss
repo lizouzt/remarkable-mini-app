@@ -1,0 +1,18 @@
+.img_list {
+  margin: 0 2vw;
+  width: 96vw;
+  column-count: 2;
+  column-gap: 2vw;
+}
+
+.img_item{
+  margin-bottom: 1vw;
+  display: block;
+  overflow: hidden;
+}
+
+.img_item image{
+  background-color: #eaeaea;
+  border-radius: 2vw;
+  width: 100%;
+}

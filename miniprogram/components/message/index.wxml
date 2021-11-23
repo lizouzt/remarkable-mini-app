@@ -1,0 +1,6 @@
+<view 
+	bind:tap="handleHide"
+	style="padding-top: {{paddingTop}}rpx" 
+	class="mclass i-message i-message-{{type}} {{ visible ? 'i-message-show' : '' }}">
+    {{ content }}
+</view>

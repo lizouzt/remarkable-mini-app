@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "mNav": "/components/nav/nav",
+    "mSearchBar": "/components/search-bar/index",
+    "Clock": "/components/clock/index"
+  },
+  "navigationStyle": "custom"
+}

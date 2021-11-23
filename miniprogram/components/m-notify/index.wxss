@@ -1,0 +1,39 @@
+@import "../../common.wxss";
+
+.m-notify{
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 2px #ececec;
+    padding: 20px 0;
+    position: fixed;
+    top: 20vh;
+    left: 20vw;
+    height: calc(66vw + 40px);
+    width: 66vw;
+}
+.mn-close{
+    color: #fff;
+    background-color: #ddd;
+    border-radius: 22px;
+    top: 5px;
+    right: 5px;
+    height: 22px;
+    width: 22px;
+    position: absolute;
+    text-align: center;
+}
+.mn-wrap{
+    height: 66vw;
+}
+.mn-title{
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 32px;
+    text-align: center;
+}
+.mn-row{
+    font-size: 12px;
+    margin-top: 10px;
+    padding: 0 20px;
+    word-break: break-all;
+}

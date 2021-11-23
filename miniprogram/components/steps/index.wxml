@@ -1,0 +1,3 @@
+<view class="mclass i-steps">
+    <slot></slot>
+</view>

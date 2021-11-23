@@ -1,0 +1,108 @@
+<view class="container">
+  <view class="m-header">
+    <view class="m-panel">
+      <view class="mh-title mf">reMarkable</view>
+      <!-- <view class="mh-avatar">
+        <image src="/images/logo.png"/>
+      </view> -->
+      <view class="mh-info">
+        <view class="elps-1">云服务助手</view>
+        <view class="elps-1">
+          私有云服务助手 隐私、安全、高效
+          <navigator 
+            hover-class="m-link-silence"
+            open-type="navigate"
+            class="mh-link"
+            url="/pages/webpage/index?url=https://apps.yowubuy.com/rental/viewer.html?p=https://rental-rexue.oss-cn-beijing.aliyuncs.com/pros/privacy.jpg">
+            隐私政策
+            <mIcon type="prompt" size="16" weight="600"/>
+          </navigator>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <view class="m-sec">
+    <view class="m-s-title m-flex">
+      <view>会员信息</view>
+      <view wx:if="{{userInfo.deviceid}}">已绑定 {{userInfo.validVip ? '' : '云服务已过期'}}</view>
+    </view>
+    <view class="m-s-list">
+      <view wx:if="{{!userInfo}}">
+        <mButton 
+          wx:if="{{canUseGetUserProfile}}"
+          type="primary"
+          shape="circle"
+          loading="{{loginPosting}}"
+          bindtap="bingGetUserInfo">
+          立即登录
+        </mButton>
+        <mButton 
+          wx:else
+          type="success"
+          shape="circle"
+          loading="{{loginPosting}}"
+          bindgetuserinfo="bingGetUserInfo"
+          open-type="getUserInfo">
+          立即登录
+        </mButton>
+      </view>
+      
+      <block wx:else>
+        <view class="m-s-item">
+          <view>设备编码</view>
+          <view wx:if="{{userInfo.deviceid}}">{{userInfo.deviceid}}</view>
+          <view wx:else>
+            <mButton type="primary" inline>获取绑定码</mButton>
+          </view>
+        </view>
+
+        <view wx:if="{{userInfo.validVip}}" 
+          class="m-s-item">
+          <view>会员类型</view>
+          <view>云服务会员</view>
+        </view>
+        <view wx:if="{{userInfo.deviceid}}" 
+          class="m-s-item">
+          <view>会员有效期</view>
+          <view>{{userInfo.vip_end_date}}</view>
+        </view>
+      </block>
+
+      <block wx:if="{{skRegion.userInfo}}">
+        <view class="m-sk rect"></view>
+        <view class="m-sk rect"></view>
+        <view class="m-sk rect"></view>
+      </block>
+    </view>
+  </view>
+
+  <view class="m-panel">
+    <view class="mh-nav m-flex">
+      <view 
+        class="mh-item"
+        bindtap="reNewVip">
+        续费
+      </view>
+      <view 
+        class="mh-item"
+        bindtap="openCustomService">
+        <mIcon type="customerservice_fill" size="23"/>
+        联系客服
+      </view>
+    </view>
+  </view>
+
+  <view class="m-panel">
+    <Uploader
+      list="{{photos}}"
+      path="applyImg"
+      multiple
+      bindRemove="uploadRemoveImage"
+      bindUploaded="uploadedImage"
+      bindError="uploadError"/>
+  </view>
+</view>
+
+<mToast id="toast"></mToast>
+

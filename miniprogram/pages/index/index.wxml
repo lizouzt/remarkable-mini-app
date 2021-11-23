@@ -1,0 +1,69 @@
+<mNav 
+  alwaysShow 
+  transparent="{{ !navBgShow }}">
+  <view class="h_nav">
+    <view class="m-flex hn_bar">
+      <view class="hn_logo">
+        <image src="/images/logo.png"/>
+      </view>
+      <mSearchBar 
+        placeholder="输入取片码" 
+        bindsearch="onSearch" 
+        bindclear="onClear"
+        throttle="{{1300}}"
+        cancel="{{true}}"
+        width="{{53}}">
+      </mSearchBar>
+    </view>
+    <view class="hn_ctl m-flex {{navBgShow ? 'showBg' : ''}}">
+      <navigator 
+        hover-class="m-link-silence"
+        open-type="navigate"
+        class="hnc-item"
+        url="/pages/order">
+        <view>记录</view>
+      </navigator>
+      <navigator 
+        hover-class="m-link-silence"
+        open-type="navigate"
+        class="hnc-item"
+        url="/pages/intro">
+        <view>说明</view>
+      </navigator>
+      <view 
+        class="hnc-item"
+        bindtap="openCustomService">
+        <view>咨询</view>
+      </view>
+    </view>
+  </view>
+</mNav>
+
+<view class="container" style="padding-top: {{navHeight}}px">
+  <view class="f-head mango mango-slow fade-in">
+    <image src="/images/theme/ppp.png" mode="widthFix"/>
+    <view class="fh-text">PHOTO</view>
+  </view>
+
+  <view class="f-clock mango mango-slow fade-in">
+    <Clock />
+  </view>
+  
+  <view class="img_list">
+    <view 
+      class="img_item"
+      wx:for="{{images}}" 
+      wx:key="index">
+      <image class="tu1" 
+        bindlongpress="del" 
+        bindtap="imagePreview" 
+        data-src="{{item.file}}" 
+        src="{{item.file}}"
+        height="{{item.height}}"
+        mode="widthFix"
+        lazy-load/>
+    </view>
+  </view>
+</view>
+
+<mToast id="toast"></mToast>

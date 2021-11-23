@@ -1,0 +1,3 @@
+<view wx:if="{{isLoading}}" class="m-p-loading mclass">
+    <image class="m-p-img" src="../../../images/mLoading.svg"/>
+</view>

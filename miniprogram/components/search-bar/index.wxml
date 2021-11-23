@@ -1,0 +1,30 @@
+<view class="weui-search-bar {{extClass}}" style="width:{{width}}vw">
+  <view class="sb__form {{focus ? 'focus' : ''}}">
+    <view class="sb__box m-flex">
+      <icon 
+      	class="sb-i-icon" 
+      	type="search" 
+      	size="16">
+      </icon>
+      <input 
+      	type="text" 
+      	class="sb__input" 
+      	placeholder="{{placeholder}}" 
+      	value="{{value}}" 
+      	bindblur="inputBlur" 
+      	bindfocus="inputFocus" 
+      	bindinput="inputChange" />
+      <icon 
+        bindtap="clearInput"
+        class="sb-i-clear {{value.length == 0 ? 'hide' : ''}}" 
+        type="clear" 
+        size="16">
+      </icon>
+    </view>
+  </view>
+  <view 
+  	wx:if="{{cancel && searchState}}" 
+  	class="weui-search-bar__cancel-btn" 
+  	bindtap="hideInput">{{cancelText}}
+  </view>
+</view>

@@ -1,0 +1,23 @@
+<view class="i-as-mask mclass-mask {{ visible ? 'i-as-mask-show' : '' }}" bindtap="handleClickMask"></view>
+<view class="mclass i-as {{ visible ? 'i-as-show' : '' }}">
+    <view class="i-as-header mclass-header"><slot name="header"></slot></view>
+    <view class="i-as-actions {{ direction == 'row' ? 'i-as-row' : '' }}">
+        <view class="i-as-action-item" wx:for="{{ actions }}" wx:key="name">
+            <i-button
+                mclass="i-as-btn"
+                bind:click="handleClickItem"
+                data-index="{{ index }}"
+                open-type="{{ item.openType }}"
+                type="ghost"
+                size="large"
+                long>
+                <view class="i-as-btn-loading" wx:if="{{ item.loading }}"></view>
+                <i-icon wx:if="{{ item.icon }}" type="{{ item.icon }}" mclass="i-as-btn-icon" size="{{ item.size }}"></i-icon>
+                <view class="i-as-btn-text" style="{{ item.color ? 'color: ' + item.color : '' }}">{{ item.name }}</view>
+            </i-button>
+        </view>
+    </view>
+    <view class="i-as-cancel" wx:if="{{ showCancel }}">
+        <i-button mclass="i-as-cancel-btn" type="ghost" size="large" long="true" bind:click="handleClickCancel">{{ cancelText }}</i-button>
+    </view>
+</view>

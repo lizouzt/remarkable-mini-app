@@ -1,0 +1,17 @@
+<view class="img_list">
+  <view 
+    class="img_item"
+    wx:for="{{images}}" 
+    wx:key="index">
+    <image class="tu1" 
+      bindlongpress="del" 
+      bindtap="imagePreview" 
+      data-src="{{item.file}}" 
+      src="{{item.file}}"
+      height="{{item.height}}"
+      mode="widthFix"
+      lazy-load/>
+  </view>
+</view>
+
+<mToast id="toast"></mToast>
