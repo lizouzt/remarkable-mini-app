@@ -12,30 +12,51 @@ export default class UserService extends BaseService {
     }
     async login(options) {
         return await this.request({
-            url: '/ui/api/login',
-            method: 'post',
-            data: {...options, __openid__: global.openid}
-        }, true)
-    }
-    async getconf(options) {
-        return await this.request({
-            url: '/xy/api/getconf',
-            method: 'get',
-            data: options
-        }, true)
-    }
-    async postFile(options) {
-        return await this.request({
-            url: '/xy/api/tiger/postfile',
-            method: 'post',
-            data: {...options, __openid__: global.openid}
-        }, true)
-    }
-    async fileList(options) {
-        return await this.request({
-            url: '/xy/api/tiger/files',
+            url: '/api/wxapp/user/login',
             method: 'post',
             data: options
         }, true)
+    }
+    async bindPhoneNumber(options) {
+        return await this.request({
+            url: '/api/wxapp/user/phone',
+            method: 'post',
+            data: options
+        }, true)
+    }
+    async initOrder(options) {
+        return await this.request({
+            url: '/api/order/checkout/init',
+            method: 'post',
+            data: options
+        }, true)
+    }
+    async updateSettle(options) {
+        return await this.request({
+            url: '/api/order/checkout/update',
+            method: 'POST',
+            data: options
+        }, true)
+    }
+    async pay(options) {
+        return await this.request({
+            url: '/api/order/checkout/pay',
+            method: 'post',
+            data: options
+        }, true)
+    }
+    async clientPayNotify(options) {
+        return await this.request({
+            url: '/api/order/checkout/create',
+            method: 'post',
+            data: options
+        }, true)
+    }
+    async queryOrderList(options) {
+        return await this.request({
+            url: '/api/order/list',
+            method: 'POST',
+            data: options
+        })
     }
 }

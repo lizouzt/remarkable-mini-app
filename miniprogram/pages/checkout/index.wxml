@@ -1,0 +1,94 @@
+<view class="container">
+        <view class="checkout-phone m-panel m-flex {{(showPhoneAuth) ? '' : 'hide'}}">
+            <view class="c-p-tip">请绑定收单手机号</view>
+            <mButton mclass="c-p-btn"
+                type="primary" 
+                shape="circle"
+                margin="{{false}}"
+                open-type="getPhoneNumber" 
+                bindgetphonenumber="getPhoneNumber">
+                一键绑定
+            </mButton>
+        </view>
+
+    <view class="m-panel">
+        <view class="m-title">
+            <view>
+                <mIcon type="integral" size="20" color="#d3381c"/>
+                云服务套餐
+            </view>
+            <view>
+                手机/PC/设备同步可用
+            </view>
+        </view>
+        <view class="m-sk rect" wx:if="{{skRegion.init}}"></view>
+        <view wx:else class="checkout-items m-flex">
+            <view wx:for="{{goodsInfo}}" 
+                wx:key="id" 
+                bindtap="onChangeItem"
+                data-index="{{index}}"
+                class="checkout-item {{index === activeIndex ? 'active' : ''}}">
+                <view class="c-ii-t elps-1">
+                    {{item.name}}
+                </view>
+                <view class="m-price large">
+                    <span>{{exchangeUnit}}</span>
+                    <span>{{item.sprice}}</span>
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <view class="m-panel">
+        <view class="checkout-row m-flex">
+            <view>
+                <mIcon type="coupons" size="20" color="#d3381c"/>
+                <block wx:if="{{couponList.length == 0}}">您账户中无有效优惠券</block>
+                <block wx:else>{{couponList[0].name}}</block>
+            </view>
+            <view>
+                <mCheckbox position="right" 
+                    color="#d3381c"
+                    checked="{{useCoupon}}" 
+                    disabled="{{isLoading || couponList.length == 0}}"
+                    bindchange="updateUseCoupon"/>
+            </view>
+        </view>
+        <view class="checkout-row m-flex">
+            <view class="m-flex">
+                <mIcon type="activity" size="20" color="#d3381c"/>
+                <navigator 
+                    hover-class="m-link-silence"
+                    open-type="navigate"
+                    url="/pages/webpage/index?url=https://apps.yowubuy.com/rental/viprule.html">
+                    《云服务协议》
+                </navigator>
+                <navigator 
+                    hover-class="m-link-silence"
+                    open-type="navigate"
+                    url="/pages/webpage/index?url=https://apps.yowubuy.com/rental/viewer.html?p=https://rental-rexue.oss-cn-beijing.aliyuncs.com/pros/privacy.jpg">
+                    《隐私政策》
+                </navigator>
+            </view>
+            <mCheckbox
+                color="#d3381c"
+                size="small"
+                checked="{{contractAgree}}"
+                bindchange="onUpdateAgreeCoupon"/>
+        </view>
+    </view>
+
+    <view class="checkout-footer">
+        <mButton 
+            shape="circle"
+            loading="{{buyLoading}}"
+            bindtap="payRequest">
+            <view>
+                立即以 <span>{{exchangeUnit}}</span><span>{{goodsInfo[activeIndex].sprice}}</span> 开通
+            </view>
+        </mButton>
+    </view>
+</view>
+
+<mToast id="toast"></mToast>
+

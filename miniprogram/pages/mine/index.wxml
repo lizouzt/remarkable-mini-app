@@ -14,8 +14,7 @@
             open-type="navigate"
             class="mh-link"
             url="/pages/webpage/index?url=https://apps.yowubuy.com/rental/viewer.html?p=https://rental-rexue.oss-cn-beijing.aliyuncs.com/pros/privacy.jpg">
-            隐私政策
-            <mIcon type="prompt" size="16" weight="600"/>
+            隐私<mIcon type="prompt" size="16" weight="600" color="#aaa"/>
           </navigator>
         </view>
       </view>
@@ -49,23 +48,35 @@
       </view>
       
       <block wx:else>
+        <view wx:if="{{userInfo.deviceid}}" 
+          class="m-s-item">
+          <view>会员类型</view>
+          <view>云服务会员</view>
+        </view>
+
         <view class="m-s-item">
           <view>设备编码</view>
           <view wx:if="{{userInfo.deviceid}}">{{userInfo.deviceid}}</view>
+          <view wx:elif="{{userInfo.code}}" bindtap="copyText" data-text="{{userInfo.code}}">
+            {{ userInfo.code }}
+          </view>
           <view wx:else>
             <mButton type="primary" inline>获取绑定码</mButton>
           </view>
         </view>
 
-        <view wx:if="{{userInfo.validVip}}" 
-          class="m-s-item">
-          <view>会员类型</view>
-          <view>云服务会员</view>
-        </view>
         <view wx:if="{{userInfo.deviceid}}" 
           class="m-s-item">
           <view>会员有效期</view>
           <view>{{userInfo.vip_end_date}}</view>
+        </view>
+
+        <view wx:if="{{userInfo.deviceid}}" 
+          class="m-s-item">
+          <view>云存储同步</view>
+          <view>
+            <Switch value="{{true}}" size="small" bindchange="onSyncSwitch"/>
+          </view>
         </view>
       </block>
 
@@ -78,18 +89,55 @@
   </view>
 
   <view class="m-panel">
-    <view class="mh-nav m-flex">
-      <view 
-        class="mh-item"
-        bindtap="reNewVip">
-        续费
-      </view>
-      <view 
-        class="mh-item"
+    <view class="mh-nav">
+      <navigator 
+        hover-class="m-link-silence"
+        open-type="navigate"
+        url="/pages/checkout/index">
+        <mButton 
+          inline
+          width="20.5vw"
+          type="primary"
+          mclass="mh-item"
+          padding="{{false}}">
+          <mIcon type="add" size="16"/>服务续费
+        </mButton>
+      </navigator>
+      <navigator 
+        hover-class="m-link-silence"
+        open-type="navigate"
+        url="/pages/orderList/main">
+        <mButton 
+          inline
+          width="20.5vw"
+          type="primary"
+          mclass="mh-item"
+          padding="{{false}}">
+          <mIcon type="activity" size="16"/>购买记录
+        </mButton>
+      </navigator>
+      <mButton 
+        inline
+        width="20.5vw"
+        type="primary"
+        padding="{{false}}"
+        mclass="mh-item"
         bindtap="openCustomService">
-        <mIcon type="customerservice_fill" size="23"/>
-        联系客服
-      </view>
+        <mIcon type="customerservice" size="16"/>技术客服
+      </mButton>
+      <navigator 
+        hover-class="m-link-silence"
+        open-type="navigate"
+        url="/pages/webpage/index?url=https://apps.yowubuy.com/viprule.html">
+        <mButton 
+          inline
+          width="20.5vw"
+          type="primary"
+          mclass="mh-item"
+          padding="{{false}}">
+          <mIcon type="feedback" size="16"/>使用说明
+        </mButton>
+      </navigator>
     </view>
   </view>
 
@@ -102,6 +150,7 @@
       bindUploaded="uploadedImage"
       bindError="uploadError"/>
   </view>
+
 </view>
 
 <mToast id="toast"></mToast>

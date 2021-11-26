@@ -1,0 +1,65 @@
+<!--pages/orderList/main.wxml-->
+<view class="container">
+    <view class="m-empty" wx:if="{{orderList.length == 0}}">
+        <mIcon type="custom:empty" color="#aaa" size='66'/>
+        <text>暂无记录</text>
+    </view>
+    
+    <view class="ol-item m-panel"
+        wx:for="{{orderList}}" 
+        wx:for-item="order" 
+        wx:key="id">
+        <view class="ol-i-head m-flex">
+            <view>
+                <mIcon mclass="ol-ih-icon" type="clock" size="16"/>
+                {{order.create_time}}
+            </view>
+            <view>
+                {{OrderStateMap[order.state]}}
+            </view>
+        </view>
+
+        <view class="ol-i-sku" wx:for="{{order.goods_info}}" wx:key="id">
+            <view class="ol-i-info">
+                <view class="ol-ii-tit elps-2">{{item.name}}</view>
+            </view>
+            <view class="ol-i-price">
+                <view class="ol-ip-i"><span>{{exchangeUnit}}</span>{{item.s_price}}</view>
+                <view class="ol-ip-i"><span>x</span>{{item.amount}}</view>
+            </view>
+            <mIcon wx:if="{{item.refunded}}" color="#666" type="custom:refund" size="36"/>
+        </view>
+
+        <view class="ol-i-settle m-flex">
+            <view class="ol-type elps-1" bindtap="copyText" data-text="{{order.id}}">
+                订单ID：{{order.id}}
+            </view>
+            <view class="ol-is-sum">
+                <view class="ol-iss-str">
+                    实际支付金额：
+                    <small>{{exchangeUnit}}</small>
+                    <span>{{order.settleInfoForShow.order_pay}}</span>
+                </view>
+            </view>
+        </view>
+
+        <view class="ol-i-ctrl">
+            <mButton wx:if="{{order.state > 1 && order.refundable}}"
+                open-type="contact"
+                data-index="{{index}}"
+                margin="{{false}}"
+                size="small"
+                shape="circle"
+                session-from="order_list"
+                send-message-title="订单:{{order.id}}">
+                联系客服
+            </mButton>
+        </view>
+    </view>
+
+    <view wx:if="{{end}}" class="m-tip">老板！这已经是底线啦</view>
+    
+    <!-- TODO::商品推荐 -->
+</view>
+
+<mToast id="toast"></mToast>

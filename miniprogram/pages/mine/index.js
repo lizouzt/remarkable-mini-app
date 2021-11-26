@@ -1,5 +1,5 @@
 import { User } from '../../manager/api'
-import { getBtnAudioCtx, sleep } from '../../common/utils'
+import { getBtnAudioCtx, sleep, copyText } from '../../common/utils'
 
 Page({
   data: {
@@ -10,15 +10,15 @@ Page({
     },
 
     loginPosting: false,
-    userInfo: false,
+    userInfo: null,//{ deviceid: "123123123ashdask", vip_end_date: "2021/11/23 下午7:42:43" },
   },
-
+  copyText: copyText,
   async onLoad (options) {
     // wx.hideShareMenu({menus: ['shareAppMessage', 'shareTimeline']})
     this.toast = this.selectComponent("#toast")
 
-    const userInfo = await global.doLogin()
-    if (userInfo) { this.setData({ userInfo }) }
+    await global.doLogin()
+    this.setData({ userInfo: global.userInfo })
 
     this.uploadAudio = getBtnAudioCtx('/images/audio/result.mp3')
     this.removeAudio = getBtnAudioCtx('/images/audio/shake.mp3')
@@ -52,17 +52,17 @@ Page({
     this.setData({ loginPosting: true })
 
     await sleep()
-    const userInfoData = await global.doLogin({ userInfo })
+    const userInfoData = await global.doLogin({ user_info: userInfo })
     console.log('userInfoData', userInfoData)
     
     this.setData({
       loginPosting: false,
-      userInfo: {
-        deviceid: "123123123ashdask",
-        vip_end_date: "2021/11/23 下午7:42:43",
-        ...userInfoData
-      }
+      userInfo: userInfoData
     })
+  },
+
+  onSyncSwitch() {
+    this.toast.showWarning('默认不可关闭', '可以联系客服获得支持')
   },
 
    /** 弹窗选择续费标准 */

@@ -39,13 +39,17 @@
   display: flex;
   justify-content: space-between;
   padding: 12px;
-  font-size: 14px;
+  font-size: 28rpx;
   border-bottom: 0.5px solid #eeeee7;
   color: #262626
 }
-
+.m-title view{
+  display: flex;
+  align-items: center;
+}
 .m-title view:nth-child(2) {
-  color: #4c4c4c;
+  color: #9a9a9a;
+  font-size: 22rpx;
 }
 
 .m-tip {
@@ -91,27 +95,36 @@ page button.m-btn-clear{
   width: 100%;
 }
 
-.m-v-price {}
-
-.m-v-price view:first-child {
-  color: #f90;
-  font-size: 14px;
-}
-
-.m-v-price view:nth-child(2) {
-  color: #4c4c4c;
-  font-size: 10px;
-}
-
-.m-v-price view span:first-child {
-  font-size: 8px;
-}
-
 .m-fprice {
   color: #4c4c4c;
   font-size: 12px;
   text-decoration: line-through;
   margin-left: 8px;
+}
+
+.m-price{
+    color: #d3381c;
+    margin: 0 4px;
+}
+.m-price span:first-child{
+    font-size: 12px;
+    margin-right: 4px;
+}
+.m-price.large span:first-child{
+    font-size: 14px;
+}
+.m-price span:nth-child(2){
+    font-size: 16px;
+    font-weight: bold;
+}
+.m-price.large span:nth-child(2){
+    font-size: 22px;
+}
+.m-price span:nth-child(3){
+    font-size: 13px;
+}
+.m-price.large span:nth-child(3){
+    font-size: 14px;
 }
 
 .m-flex {

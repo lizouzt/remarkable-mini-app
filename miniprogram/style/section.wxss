@@ -23,13 +23,13 @@
 }
 
 .m-s-list {
-  padding: 22px 12px;
+  padding: 0 12px;
 }
 .m-s-item{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: .3rem;
+  margin-bottom: .5rem;
 }
 .m-s-item > view:first-child{
   color: #bfbfbf;

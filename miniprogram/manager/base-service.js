@@ -2,11 +2,13 @@ const baseImgUrl = global.ossHost
 
 const genders = ['男士', '女士']
 
-const nativeErrorMessageTranslate = (errMsg) => {
+const nativeErrorMessageTranslate = (errMsg, statusCode) => {
   let ret = errMsg
 
   if (/request\:fail/i.test(errMsg)) {
-      ret = '网络异常 请稍后重试'
+    ret = '网络异常 请稍后重试'
+  } else if (statusCode == 404) {
+    ret = '未知请求'
   }
 
   return ret
@@ -46,7 +48,7 @@ export default class BaseService {
     return new Promise((resolve, reject) => {
       wx.request(Object.assign(opts, {
         header: {
-          "x-u-token": global.token || ''
+          "x-u-token": getToken()
         },
         complete: opts.complete || function(res) {
           let { data = {}, errMsg, statusCode, header } = res
@@ -67,11 +69,10 @@ export default class BaseService {
             } else {
               if (!data.status) {
                 if (data.constructor == String) {
-                  data = {};
-                  data.data = data;
+                  data = { data }
                 }
 
-                errMsg = nativeErrorMessageTranslate(errMsg)
+                errMsg = nativeErrorMessageTranslate(errMsg, statusCode)
 
                 data.status = {
                   state: 1,
@@ -131,11 +132,39 @@ export default class BaseService {
  * 存在信息
  * { userInfo, token, company, client }
  */
-const _user_data_cache_key_ = '_scrm_user'
+const _token_data_cache_key_ = '__mini_token__'
+const getToken = () => {
+  if (global.token) {
+    return global.token
+  } else {
+    const token = wx.getStorageSync(_token_data_cache_key_)
+    global.token = token
+  
+    return token
+  }
+}
+
+export const setToken = (token) => {
+  global.token = token
+  return wx.setStorageSync(_token_data_cache_key_, token)
+}
+
+const _user_data_cache_key_ = '__mini_user__'
 
 export const getUser = () => {
   const data = wx.getStorageSync(_user_data_cache_key_)
-  return data ? data.userInfo : ""
+
+  if (data && data.userInfo) {
+    const { userInfo } = data
+
+    userInfo.validVip = userInfo.deviceid && +new Date(userInfo.vip_end_date) > Date.now()
+
+    global.userInfo = userInfo
+
+    return userInfo
+  } else {
+    return ""
+  }
 }
 
 export const clearUser = () => {
@@ -166,9 +195,6 @@ export const updateUser = (state = {}) => {
     global.company = curUser.company
   }
 
-  if (state.token) {
-    global.token = curUser.token
-  }
   // C端客户信息
   if (state.client) {
     global.client = curUser.client

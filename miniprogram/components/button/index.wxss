@@ -74,7 +74,7 @@
 
 .i-btn-warning {
     color: #fff !important;
-    background: #f90 !important;
+    background: #ee3f4d !important;
 }
 
 .i-btn-error {

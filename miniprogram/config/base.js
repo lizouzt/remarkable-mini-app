@@ -1,6 +1,6 @@
 export default {
-  ossHost: "https://xxx.oss-cn-shanghai.aliyuncs.com",
-  baseTitle: '抖选选片',
+  ossHost: "https://gbuy.oss-cn-shanghai.aliyuncs.com",
+  baseTitle: 'reMarkable | 管理助手',
   shareImg: '/images/logo.png',
   BorysAppsMaster: {},
 }

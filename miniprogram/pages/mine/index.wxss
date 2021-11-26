@@ -43,6 +43,17 @@ page {
 .mh-title{
   font-size: 66rpx;
   padding: 5vw 5vw 0;
+  background-image: 
+  -webkit-gradient( linear, left top, right top, 
+  color-stop(0, #212529), 
+  color-stop(0.15, #0077b6), 
+  color-stop(0.45, #ced4da), 
+  color-stop(0.75, #ced4da), 
+  color-stop(1, #212529) );
+  color: transparent;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -ms-background-clip: text
 }
 
 .mh-avatar{
@@ -84,18 +95,21 @@ page {
 }
 
 .mh-nav{
-  justify-content: space-around;
-  padding: 36rpx 0 21rpx;
+  overflow: hidden;
+}
+.mh-nav :nth-child(4n) .mh-item {
+  margin-right: 0!important;
 }
 
 .mh-item{
-  flex: 0 1;
-  margin: 0 1vw 1vw 1vw;
+  float: left;
+  font-size: 12px!important;
+  margin: 6px 2vw 6px 0!important;
   /*border: 1rpx solid #eaeaea;*/
-  padding: 2vw 3vw;
-  border-radius: 1vw;
+  /*height: 20px;*/
+  /*padding: 2vw 3vw;*/
+  /*border-radius: 1vw;*/
 }
-
 
 
 

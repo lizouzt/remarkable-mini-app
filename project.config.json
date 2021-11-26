@@ -18,7 +18,7 @@
     "checkInvalidKey": true,
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
-    "compileHotReLoad": false,
+    "compileHotReLoad": true,
     "lazyloadPlaceholderEnable": false,
     "useMultiFrameRuntime": true,
     "useApiHook": true,
@@ -39,7 +39,7 @@
     "showES6CompileOption": false,
     "useCompilerPlugins": false
   },
-  "appid": "wxbf00c66dd46795fb",
+  "appid": "wxded1c91c7b2a6583",
   "projectname": "%E6%8A%96%E9%80%89",
   "libVersion": "2.19.1",
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate",

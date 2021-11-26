@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/mine/index",
+    "pages/orderList/main",
+    "pages/checkout/index",
     "pages/list/index",
     "pages/index/index",
     "pages/webpage/index"
@@ -9,7 +11,7 @@
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "reMarkable | 文件管理",
+    "navigationBarTitleText": "reMarkable | 管理助手",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {

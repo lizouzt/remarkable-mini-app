@@ -32,7 +32,7 @@
 }
 
 .i-message-warning {
-    background: #f90
+    background: #ee3f4d
 }
 
 .i-message-error {

@@ -1,5 +1,7 @@
-import { User } from './manager/api'
+import { User, updateUser, getUser, setToken } from './manager/api'
 import config from './config'
+
+const USER_INFO_CACHE_KEY = '__login_user_info__'
 
 Object.assign(global, config)
 
@@ -44,7 +46,7 @@ global.getUserId = () => {
   })
 }
 
-global.doLogin = ({ userInfo, refresh = false } = {}) => {
+global.doLogin = ({ user_info, refresh = false } = {}) => {
   return new Promise(async resolve => {
     if (!refresh && global.userInfo) {
       return resolve(global.userInfo)
@@ -64,12 +66,16 @@ global.doLogin = ({ userInfo, refresh = false } = {}) => {
           global.message('微信登录失败 请退出重试!')
         }
 
-        const { code: loginResCode, data } = await User.login({ code, userInfo })
+        const { code: loginResCode, data, header } = await User.login({ code, user_info })
 
         global.doLogin._isPosting_ = false
 
         if (loginResCode == 0) {
+          const userInfo = {...data, deviceid: "", vip_end_date: "2021/11/23 下午7:42:43", code: 'kjhskdhakhkh123'}
           userInfo.validVip = userInfo.deviceid && +new Date(userInfo.vip_end_date) > Date.now()
+
+          updateUser({ userInfo })
+          setToken(data.token || header.token)
 
           global.userInfo = userInfo
         }
@@ -84,6 +90,8 @@ global.doLogin = ({ userInfo, refresh = false } = {}) => {
 const initAppGlobalData = async () => {
   // await global.getUserId()
   // await global.getAppConfigure()
+  getUser()
+
   await global.doLogin()
 }
 

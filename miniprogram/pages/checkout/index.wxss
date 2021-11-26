@@ -1,0 +1,95 @@
+page{
+    background: #f2f2f2;
+}
+.container{
+    color: #333;
+    background: #f2f2f2;
+    padding-bottom: 52px;
+}
+
+.checkout-row{
+    background: #fff;
+    font-size: 3.6vw;
+    padding: 4px 12px;
+}
+.checkout-row > view:nth-child(1){
+    flex: 80px 0 0;
+    line-height: 32px;
+}
+.checkout-row mIcon {
+    margin-right: 1vw;
+}
+.checkout-row > view:nth-child(1) span{
+    color: #999;
+    font-size: 1.5vw;
+}
+.checkout-row > view:nth-child(2){
+    flex: 1 1;
+}
+.checkout-phone{
+    font-size: 3vw;
+    padding: 12px;
+    position: relative;
+    height: 40px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    bottom: -100%;
+    opacity: 1;
+    transition: all .4s;
+}
+.checkout-phone.hide{
+    padding: 0 12px;
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+.c-p-tip{
+    color: #666;
+    padding-left: 12px;
+}
+.c-p-btn{
+    width: 80px;
+}
+
+.checkout-note{
+    overflow: hidden;
+}
+.checkout-note textarea{
+    font-size: 3vw;
+    width: 100%;
+}
+
+.checkout-items{
+    justify-content: flex-start;
+}
+
+.checkout-item{
+    border: 1px solid #ccc;
+    border-radius: 8rpx;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 16px 12px;
+    overflow: hidden;
+    text-align: center;
+    width: 16vw;
+    margin: 4vw 4vw 2vw 2vw;
+}
+.checkout-item.active{
+    border-color: #ee3f4d;
+}
+
+.checkout-footer button{
+    background: linear-gradient(to bottom right, #0077b6, #48cae4) !important;
+    box-shadow: none;
+    color: #fff !important;
+    font-size: 4w;
+    height: 40px;
+    line-height: 40px;
+    margin: 0;
+    padding: 0 20px;
+}
+
+

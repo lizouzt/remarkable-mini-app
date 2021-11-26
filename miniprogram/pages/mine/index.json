@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "Uploader": "../../components/uploader/index"
+    "Uploader": "../../components/uploader/index",
+    "Switch": "../../components/switch/index"
   }
 }

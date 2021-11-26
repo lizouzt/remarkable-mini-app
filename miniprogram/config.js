@@ -24,6 +24,12 @@ const conf = (false && IS_DEV) ? require('./config/local') : require('./config/p
 export default Object.assign(sysData, {
   IS_DEV,
   ...conf,
+  modeConf: {
+    // 货币单位 关联影响1、货币显示；2、收货地址微信读取
+    exchangeUnit: '¥',
+    // 显示汇率
+    exchangeRate: 1,
+  },
   isMaster: (app="zm") => {
     return global.BorysAppsMaster[app] ? global.BorysAppsMaster[app].includes(global.openid) : false
   }

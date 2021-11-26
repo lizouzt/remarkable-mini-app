@@ -1,0 +1,8 @@
+{
+	"navigationBarTitleText": "会员续费",
+	"usingComponents": {
+    "mCheckbox": "/components/checkbox/index",
+    "mRadioGroup": "/components/radio-group/index",
+    "mRadio": "/components/radio/index"
+	}
+}

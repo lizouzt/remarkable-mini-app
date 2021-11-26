@@ -1,0 +1,114 @@
+page{
+    background: #f9f9f9;
+    height: 100%;
+}
+.container{
+    background: #f4f4f4;
+    min-height: 100%;
+}
+
+.ol-item{
+    padding: 0 12px;
+}
+.ol-i-head{
+    font-size: 12px;
+    padding: 12px 0;
+    height: 20px;
+}
+.ol-ih-icon{
+    margin-top: -2px;
+}
+.ol-i-head > view:first-child{
+    color: #333;
+}
+.ol-i-head > view:last-child{
+    color: #ee3f4d;
+}
+
+.ol-i-sku{
+    display: flex;
+    justify-content: space-between;
+    padding: 2px 0 8px 0;
+    position: relative;
+}
+.ol-i-sku mIcon{
+    position: absolute;
+    top: 40px;
+    right: 0;
+    z-index: 2;
+    transform: rotateZ(35deg);
+}
+
+.ol-i-info{
+    flex: 1 1;
+    font-size: 12px;
+    padding-right: 12px;
+    overflow: hidden;
+}
+.ol-ii-tit{
+    color: #333;
+    padding-top: 2px;
+    line-height: 14px;
+    height: 28px;
+}
+.ol-i-price{
+    flex: 30% 0 0;
+    text-align: right;
+}
+.ol-ip-i{
+    line-height: 14px;
+}
+.ol-ip-i:first-child{
+    color: #333;
+    font-size: 14px;
+}
+.ol-ip-i:last-child{
+    color: #999;
+    font-size: 12px;
+    margin-top: 6px;
+}
+.ol-ip-i span{
+    font-size: 10px;
+    margin-right: 2px;
+    position: relative;
+    top: -1px;
+}
+
+.ol-i-settle{
+    color: #333;
+    font-size: 12px;
+    overflow: hidden;
+    position: relative;
+}
+.ol-type{
+    color: #999;
+    flex: 50% 0 1;
+}
+.ol-is-sum{
+    flex: 40% 0 1;
+    text-align: right;
+}
+.ol-iss-str{
+    display: inline-block;
+}
+.ol-iss-str small{
+    font-size: 10px;
+}
+.ol-iss-icon{
+    transition: transform .2s linear;
+}
+
+.ol-i-ctrl{
+    margin: 12px 0 6px;
+    overflow: hidden;
+}
+.ol-i-ctrl button{
+    color: #666 !important;
+    margin: 0 0 6px 6px !important;
+    float: right;
+}
+.ol-is-desc{
+    color: #999;
+    font-size: 12px;
+    text-align: right;
+}
