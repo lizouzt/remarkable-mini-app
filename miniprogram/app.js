@@ -63,7 +63,7 @@ global.doLogin = ({ user_info, refresh = false } = {}) => {
     wx.login({
       success: async ({code, errMsg}) => {
         if (!code) {
-          global.message('微信登录失败 请退出重试!')
+          global.message('微信登录失败 请退出重试')
         }
 
         const { code: loginResCode, data, header } = await User.login({ code, user_info })
@@ -71,13 +71,15 @@ global.doLogin = ({ user_info, refresh = false } = {}) => {
         global.doLogin._isPosting_ = false
 
         if (loginResCode == 0) {
-          const userInfo = {...data, deviceid: "", vip_end_date: "2021/11/23 下午7:42:43", code: 'kjhskdhakhkh123'}
+          const userInfo = {...data, deviceid: "123123gjhk1h23k1h2", vip_end_date: "2021/11/23 下午7:42:43", code: 'kjhskdhakhkh123'}
           userInfo.validVip = userInfo.deviceid && +new Date(userInfo.vip_end_date) > Date.now()
 
           updateUser({ userInfo })
           setToken(data.token || header.token)
 
           global.userInfo = userInfo
+        } else if (refresh) {
+          global.message('刷新信息失败')
         }
 
         global.doLogin._resolveList_.forEach(rec => rec(global.userInfo))

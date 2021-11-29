@@ -1,4 +1,4 @@
-import { User } from '../../manager/api'
+import { User, Device, updateUser } from '../../manager/api'
 import { getBtnAudioCtx, sleep, copyText } from '../../common/utils'
 
 Page({
@@ -10,18 +10,27 @@ Page({
     },
 
     loginPosting: false,
-    userInfo: null,//{ deviceid: "123123123ashdask", vip_end_date: "2021/11/23 下午7:42:43" },
+    doingGetCode: false,
+    doingRidOfCode: false,
+    doingStateRefresh: false,
+
+    userInfo: null,
   },
   copyText: copyText,
-  async onLoad (options) {
+  onLoad (options) {
     // wx.hideShareMenu({menus: ['shareAppMessage', 'shareTimeline']})
     this.toast = this.selectComponent("#toast")
 
-    await global.doLogin()
-    this.setData({ userInfo: global.userInfo })
-
+    this.clickAudio = getBtnAudioCtx('/images/audio/click.mp3')
     this.uploadAudio = getBtnAudioCtx('/images/audio/result.mp3')
     this.removeAudio = getBtnAudioCtx('/images/audio/shake.mp3')
+
+    this.getUserInfo()
+  },
+
+  async getUserInfo (options) {
+    await global.doLogin(options)
+    this.setData({ userInfo: global.userInfo })
   },
 
   bingGetUserInfo ({ detail: { userInfo, errMsg } }) {
@@ -52,6 +61,7 @@ Page({
     this.setData({ loginPosting: true })
 
     await sleep()
+
     const userInfoData = await global.doLogin({ user_info: userInfo })
     console.log('userInfoData', userInfoData)
     
@@ -61,14 +71,65 @@ Page({
     })
   },
 
-  onSyncSwitch() {
+  onSyncSwitch () {
     this.toast.showWarning('默认不可关闭', '可以联系客服获得支持')
   },
 
    /** 弹窗选择续费标准 */
-  /** 跳转结算支付页 */
-  reNewVip() {
-    console.log('reNewVip')
+
+  async getCode () {
+    this.clickAudio.play()
+    this.setData({ doingGetCode: true })
+
+    const { code, msg, data } = await Device.getCode()
+
+    this.setData({ doingGetCode: false })
+
+    if (code !== 0) {
+      return this.toast.showFailure('获取失败', msg)
+    }
+
+    this.setData({ 'userInfo.code': data.code })
+    updateUser({ userInfo: this.data.userInfo })
+  },
+
+  async doingStateRefresh () {
+    this.clickAudio.play()
+
+    this.setData({ doingStateRefresh: true })
+
+    if (this.__lastRefreshTime && this.__lastRefreshTime + 1e3 * 60 * 1 > Date.now()) {
+      // 分钟前刷新过
+      
+      await sleep(1e3)
+    } else {
+      this.__lastRefreshTime = Date.now()
+
+      await this.getUserInfo({ refresh: true })
+    }
+
+    this.setData({ doingStateRefresh: false })
+  },
+
+  async ridOfCode () {
+    this.clickAudio.play()
+    this.setData({ doingRidOfCode: true })
+
+    const { userInfo } = this.data
+
+    const { code, msg, data } = await Device.ridOfCode({ deviceid: userInfo.deviceid })
+
+    this.setData({ doingRidOfCode: false })
+
+    if (code !== 0) {
+      return this.toast.showFailure('解绑失败', msg)
+    }
+
+    userInfo.deviceid = ''
+    userInfo.code = ''
+
+    this.setData({ userInfo })
+    updateUser({ userInfo })
   },
 
   openCustomService () {

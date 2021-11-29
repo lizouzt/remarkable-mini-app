@@ -1,10 +1,10 @@
 <view class="container">
   <view class="m-header">
     <view class="m-panel">
-      <view class="mh-title mf">reMarkable</view>
-      <!-- <view class="mh-avatar">
+      <view class="mh-avatar">
         <image src="/images/logo.png"/>
-      </view> -->
+      </view>
+      <view class="mh-title mf">& reMarkable</view>
       <view class="mh-info">
         <view class="elps-1">云服务助手</view>
         <view class="elps-1">
@@ -55,13 +55,46 @@
         </view>
 
         <view class="m-s-item">
-          <view>设备编码</view>
-          <view wx:if="{{userInfo.deviceid}}">{{userInfo.deviceid}}</view>
-          <view wx:elif="{{userInfo.code}}" bindtap="copyText" data-text="{{userInfo.code}}">
+          <view>设备同步Code</view>
+          <view wx:if="{{userInfo.code}}" bindtap="copyText" data-text="{{userInfo.code}}">
             {{ userInfo.code }}
           </view>
           <view wx:else>
-            <mButton type="primary" inline>获取绑定码</mButton>
+            <mButton 
+              type="primary" 
+              size="small" 
+              width="20.5vw" 
+              padding="{{false}}" 
+              shape="circle" 
+              padding="{{false}}" 
+              bindtap="getCode" 
+              loading="{{doingGetCode}}"
+              inline>
+              获取Code
+            </mButton>
+          </view>
+        </view>
+
+        <view wx:if="{{userInfo.deviceid}}"
+          class="m-s-item">
+          <view>设备ID</view>
+          <view>{{userInfo.deviceid}}</view>
+        </view>
+        <view wx:else class="m-s-item">
+          <view>刷新绑定状态</view>
+          <view>
+            <mButton 
+              type="primary" 
+              size="small" 
+              width="25vw" 
+              padding="{{false}}" 
+              shape="circle" 
+              padding="{{false}}" 
+              bindtap="doingStateRefresh" 
+              loading="{{doingStateRefresh}}"
+              inline>
+              刷新
+            </mButton>
           </view>
         </view>
 
@@ -75,7 +108,28 @@
           class="m-s-item">
           <view>云存储同步</view>
           <view>
-            <Switch value="{{true}}" size="small" bindchange="onSyncSwitch"/>
+            <Switch 
+              size="small"
+              value="{{true}}"  
+              bindchange="onSyncSwitch"/>
+          </view>
+        </view>
+
+        <view wx:if="{{userInfo.deviceid}}" 
+          class="m-s-item">
+          <view>解除绑定</view>
+          <view>
+            <mButton 
+              type="primary" 
+              size="small" 
+              width="20.5vw" 
+              padding="{{false}}" 
+              shape="circle" 
+              bindtap="ridOfCode" 
+              loading="{{doingRidOfCode}}"
+              inline>
+              解除绑定
+            </mButton>
           </view>
         </view>
       </block>
@@ -93,10 +147,12 @@
       <navigator 
         hover-class="m-link-silence"
         open-type="navigate"
-        url="/pages/checkout/index">
+        url="/pages/checkout/index"
+        wx:if="{{userInfo}}">
         <mButton 
           inline
-          width="20.5vw"
+          size="small"
+          width="19vw"
           type="primary"
           mclass="mh-item"
           padding="{{false}}">
@@ -106,10 +162,12 @@
       <navigator 
         hover-class="m-link-silence"
         open-type="navigate"
-        url="/pages/orderList/main">
+        url="/pages/orderList/main"
+        wx:if="{{userInfo}}">
         <mButton 
           inline
-          width="20.5vw"
+          size="small"
+          width="19vw"
           type="primary"
           mclass="mh-item"
           padding="{{false}}">
@@ -118,7 +176,8 @@
       </navigator>
       <mButton 
         inline
-        width="20.5vw"
+        size="small"
+        width="19vw"
         type="primary"
         padding="{{false}}"
         mclass="mh-item"
@@ -131,13 +190,35 @@
         url="/pages/webpage/index?url=https://apps.yowubuy.com/viprule.html">
         <mButton 
           inline
-          width="20.5vw"
+          size="small"
+          width="19vw"
           type="primary"
           mclass="mh-item"
           padding="{{false}}">
           <mIcon type="feedback" size="16"/>使用说明
         </mButton>
       </navigator>
+    </view>
+  </view>
+
+  <view class="m-sec">
+    <view class="m-s-title m-flex">
+      <view>同步步骤</view>
+      <view>一次配置轻松同步</view>
+    </view>
+    <view class="m-s-list">
+      <view class="m-s-item">
+        <view>1. 登录账号获取设备同步Code</view>
+      </view>
+      <view class="m-s-item">
+        <view>2. 电脑链接设备 修改服务代理</view>
+      </view>
+      <view class="m-s-item">
+        <view>3. 打开设备输入Code</view>
+      </view>
+      <view class="m-s-item">
+        <view>4. 等待设备链接 使用服务</view>
+      </view>
     </view>
   </view>
 

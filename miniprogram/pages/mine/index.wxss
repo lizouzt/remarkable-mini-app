@@ -42,14 +42,15 @@ page {
 
 .mh-title{
   font-size: 66rpx;
-  padding: 5vw 5vw 0;
+  padding: 5vw 5vw 0 128rpx;
+  
   background-image: 
   -webkit-gradient( linear, left top, right top, 
-  color-stop(0, #212529), 
-  color-stop(0.15, #0077b6), 
-  color-stop(0.45, #ced4da), 
-  color-stop(0.75, #ced4da), 
-  color-stop(1, #212529) );
+  color-stop(0, #ee3f4d), 
+  color-stop(0.15, #d00000), 
+  color-stop(0.45, #f48c06), 
+  color-stop(0.75, #ffba08), 
+  color-stop(1, #ffba08) );
   color: transparent;
   -webkit-background-clip: text;
   -moz-background-clip: text;
@@ -57,14 +58,14 @@ page {
 }
 
 .mh-avatar{
-  width: 150rpx;
-  height: 150rpx;
+  width: 68rpx;
+  height: 68rpx;
   border-radius: 50%;
   overflow: hidden;
   display: float;
   position: absolute;
-  left: 10vw;
-  bottom: 150rpx;
+  left: 32px;
+  top: 8vw;
 }
 
 .mh-avatar image{
@@ -96,6 +97,7 @@ page {
 
 .mh-nav{
   overflow: hidden;
+  padding: 0 12px;
 }
 .mh-nav :nth-child(4n) .mh-item {
   margin-right: 0!important;

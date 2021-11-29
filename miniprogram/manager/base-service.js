@@ -63,9 +63,9 @@ export default class BaseService {
             resolve({ ...data, header })
           } else {
             if (data.status && data.status.state == 5) {
+              clearUser()
               wx.hideNavigationBarLoading()
-              wx.redirectTo({ url: '/pages/login/index' })
-              
+              wx.redirectTo({ url: '/pages/mine/index' })
             } else {
               if (!data.status) {
                 if (data.constructor == String) {
@@ -174,6 +174,7 @@ export const clearUser = () => {
   global.client = undefined
   
   wx.setStorageSync(_user_data_cache_key_, '')
+  wx.setStorageSync(_token_data_cache_key_, '')
 }
 
 export const updateUser = (state = {}) => {
@@ -182,13 +183,6 @@ export const updateUser = (state = {}) => {
 
   if (state.userInfo) {
     global.userInfo = curUser.userInfo
-
-    /**
-     * 未绑定用户则不做缓存
-     */
-    if (curUser.userInfo.user_type === 0) {
-      delete curUser.userInfo
-    }
   }
 
   if (state.company) {
