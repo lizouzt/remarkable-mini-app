@@ -1,25 +1,24 @@
-<!--pages/orderList/main.wxml-->
-<view class="container">
-    <view class="m-empty" wx:if="{{orderList.length == 0}}">
+<view class="container {{ theme }}">
+    <view class="m-empty" wx:if="{{taskList.length == 0}}">
         <image src="/images/theme/no-item.png"/>
         <text>暂无记录</text>
     </view>
     
     <view class="ol-item m-panel"
-        wx:for="{{orderList}}" 
-        wx:for-item="order" 
+        wx:for="{{taskList}}" 
+        wx:for-item="task" 
         wx:key="id">
         <view class="ol-i-head m-flex">
             <view>
                 <mIcon mclass="ol-ih-icon" type="clock" size="16"/>
-                {{order.create_time}}
+                {{task.create_time}}
             </view>
             <view>
-                {{OrderStateMap[order.state]}}
+                {{TaskStateMap[task.state]}}
             </view>
         </view>
 
-        <view class="ol-i-sku" wx:for="{{order.goods_info}}" wx:key="id">
+        <view class="ol-i-sku" wx:for="{{task.goods_info}}" wx:key="id">
             <view class="ol-i-info">
                 <view class="ol-ii-tit elps-2">{{item.name}}</view>
             </view>
@@ -31,28 +30,24 @@
         </view>
 
         <view class="ol-i-settle m-flex">
-            <view class="ol-type elps-1" bindtap="copyText" data-text="{{order.id}}">
-                订单ID：{{order.id}}
+            <view class="ol-type elps-1" bindtap="copyText" data-text="{{task.id}}">
+                订单ID：{{task.id}}
             </view>
             <view class="ol-is-sum">
                 <view class="ol-iss-str">
                     实际支付金额：
                     <small>{{exchangeUnit}}</small>
-                    <span>{{order.settleInfoForShow.order_pay}}</span>
                 </view>
             </view>
         </view>
 
         <view class="ol-i-ctrl">
-            <mButton wx:if="{{order.state > 1 && order.refundable}}"
-                open-type="contact"
+            <mButton wx:if="{{task.state > 0}}"
                 data-index="{{index}}"
                 margin="{{false}}"
                 size="small"
-                shape="circle"
-                session-from="order_list"
-                send-message-title="订单:{{order.id}}">
-                联系客服
+                shape="circle">
+                操作
             </mButton>
         </view>
     </view>

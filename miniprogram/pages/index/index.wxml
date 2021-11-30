@@ -36,8 +36,8 @@
       hover-class="m-link-silence"
       open-type="navigate"
       class="hnc-item"
-      url="/pages/webpage/index?url=https://apps.yowubuy.com/rental/viewer.html?p=https://rental-rexue.oss-cn-beijing.aliyuncs.com/pros/privacy.jpg">
-      <view>隐私</view>
+      url="/pages/task/main">
+      <view>任务</view>
     </navigator>
   </view>
   <view class="f-head">
@@ -56,7 +56,7 @@
     bindrefresherrefresh="onRefreshDoding"
     bindrefresherrestore="onRefreshRestore"
     bindscrolltolower="onScrollBottom"
-    class="doc-list" 
+    class="doc-list {{(!userInfo || !userInfo.deviceid || !docList.length) ? 'empty' : ''}}" 
     style="height: {{fixedContentHeight}}px">
     <view wx:if="{{!docList.length}}" 
       class="doc-empty mango fade-in-up">
@@ -71,25 +71,62 @@
 
     <block wx:else>
       <block wx:for="{{docList}}" wx:key="index">
-        <view wx:if="{{item.type == 'DocumentType'}}"
-          class="doc-item mango fade-in-up" 
-          bindtap="showFileOperatePicker" 
+        <block wx:if="{{item.type == 'DocumentType'}}">
+          <view
+            class="doc-item mango fade-in-up" 
+            bindtap="showFileOperatePicker" 
+            data-index="{{index}}">
+            <view class="elps-1 mf"><mIcon type="img:file" size="16"/>{{ item.name }}</view>
+            <view class="elps-1">{{ item.LastModified }}</view>
+            <view>{{ item.Size }}</view>
+            <mIcon type="img:more" size="16"/>
+          </view>
+        </block>
+        <view wx:else
+          class="doc-item mango fade-in-up"
           data-index="{{index}}">
-          <view class="elps-1"><mIcon type="img:file" size="16"/>{{ item.name }}</view>
-          <view class="elps-1">{{ item.LastModified }}</view>
-          <view>{{ item.Size }}</view>
-          <mIcon type="img:more" size="16"/>
+          <view class="elps-1 mf"><mIcon type="img:folder" size="16"/>{{ item.name }}</view>
+          <mIcon type="img:right_arrow" size="16"/>
         </view>
       </block>
       <view wx:if="{{!isLoading}}" class="m-tip">————— end —————</view>
     </block>
 
-    <view wx:if="{{isLoading}}" class="mango mango-d1s fade-in-up">
+    <view wx:if="{{isLoading}}" class="mango fade-in-up">
       <view class="m-sk rect10"></view>
-      <view wx:if="{{!docList.length}}" class="m-sk rect10"></view>
-      <view wx:if="{{!docList.length}}" class="m-sk rect10"></view>
     </view>
   </scroll-view>
+
+  <view class="share-box mango {{!!showShareDrawBox ? 'fade-in-up' : 'fade-out'}}">
+    <view class="sb-inner" wx:if="{{showShareDrawBox}}">
+      <view class="m-title mf elps-2">
+        发起分享《{{ showShareDrawBox.item.name }}》
+      </view>
+      <view class="m-big mf m-t2" bindtap="copyText" data-text="{{showShareDrawBox.code}}">
+        {{ showShareDrawBox.code }}
+        <sub class="m-tip">分享码</sub>
+      </view>
+      <view class="m-flex m-around">
+        <mButton 
+          type="primary" 
+          shape="circle" 
+          width="30vw"
+          bindtap="hideShareBox">
+          取消
+        </mButton>
+        <mButton 
+          type="primary" 
+          shape="circle" 
+          width="30vw"
+          openType="share">
+          发送分享
+        </mButton>
+      </view>
+      <view class="m-tip">
+        点击分享发送给好友 并 将分享码告诉Ta
+      </view>
+    </view>
+  </view>
 </view>
 
 <mToast id="toast"></mToast>

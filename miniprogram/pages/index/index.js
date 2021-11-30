@@ -1,19 +1,23 @@
 import { Device } from '../../manager/api'
-import { getBtnAudioCtx, sleep, getRelativeTime } from '../../common/utils'
+import { getBtnAudioCtx, sleep, getRelativeTime, copyText } from '../../common/utils'
 
 const formateDocItem = (list) => {
     return list.map((item, index) => ({
         ...item,
-        Size: item.Size == 0 ? '-' : (item.Size / 1024 / 1024 + 'MB'),
-        LastModified: item.LastModified == '0001-01-01T00:00:00Z' ? '-' : getRelativeTime(item.LastModified)
+        Size: item.Size == 0 ? '大小' : (item.Size / 1024 / 1024 + 'MB'),
+        LastModified: item.LastModified == '0001-01-01T00:00:00Z' ? '时间' : getRelativeTime(item.LastModified)
     }))
 }
 
 Page({
     data: {
+        search: '',
         docList: [],
 
         userInfo: null,
+
+        showShareDrawBox: null,
+        shareCodeMap: {},
 
         isLoading: false,
         refresh: false,
@@ -25,7 +29,7 @@ Page({
         navBgShow: false,
         fixedContentHeight: 360,
     },
-
+    copyText: copyText,
     async onLoad () {
         this.toast = this.selectComponent("#toast")
 
@@ -47,9 +51,11 @@ Page({
     },
 
     async onShow () {
+        const curUserInfo = this.data.userInfo
+
         this.setData({ userInfo: global.userInfo })
 
-        if (this.hideTime + 10 * 60 * 1e3 < Date.now()) {
+        if ((!curUserInfo && global.userInfo) || this.hideTime + 10 * 60 * 1e3 < Date.now()) {
             this.hideTime = Date.now()
             this.loadList(1)
         }
@@ -74,6 +80,24 @@ Page({
     onRefreshPulling () {
         this.setData({ refresh: true })
     },
+    
+    onSearch ({ detail }) {
+        const { docList, orgDocList } = this.data
+
+        const list = orgDocList || docList
+
+        const filterList = list.filter(item => item.name.indexOf(detail) > -1)
+
+        this.setData({ 
+            search: detail,
+            orgDocList: [...list],
+            docList: filterList
+        })
+    },
+    onClear () {
+        this.setData({ search: '', docList: this.data.orgDocList, orgDocList: null })
+    },
+
     async onRefreshDoding () {
         await this.loadList(1)
         this.onRefreshRestore()    
@@ -93,7 +117,11 @@ Page({
     },
 
     async loadList (page) {
-        const { pageNum, docList, userInfo } = this.data
+        const { pageNum, docList, userInfo, search } = this.data
+
+        if (search) {
+            return this.toast.showWarning('请先清除搜索', '目前搜索功能只针对已加载数据')
+        }
 
         if (!userInfo || !userInfo.deviceid) {
             console.log('未登录 或 未绑定设备')
@@ -106,7 +134,8 @@ Page({
         this.setData({ isLoading: true })
 
         const { code, msg, data } = await Device.queryList({ page_num: tarPage, query: '' })
-        
+        await sleep(1.5e3)
+
         if (code === 0) {
             const list = data.doclist || []
             const newData = { pageNum: tarPage + 1 }
@@ -114,12 +143,13 @@ Page({
             if (list.length < 5) {
                 newData.end = true
             }
-            console.log('tarPage', tarPage)
+            
             if (tarPage === 1) {
                 newData.docList = formateDocItem(list)
             } else {
                 newData.docList = docList.concat(formateDocItem(list))
             }
+
             console.log('newData.docList', newData.docList)
             this.setData(newData)
         } else {
@@ -141,6 +171,8 @@ Page({
             alertText: `文件《${item.name}》`,
             itemList: ['下载', '分享', '删除'],
             success ({ tapIndex }) {
+                that.clickAudio.play()
+
                 if (tapIndex === 0) {
                     that.downloadDoc(item)
                 } else if (tapIndex === 1) {
@@ -164,8 +196,32 @@ Page({
         }
     },
 
-    async shareDoc () {
+    async shareDoc (item) {
+        const { shareCodeMap } = this.data
 
+        if (shareCodeMap[item.id]) {
+            return this.setData({ showShareDrawBox: { code: shareCodeMap[item.id], item } })
+        }
+
+
+        this.toast.showLoading()
+        const { code, data, msg } = await Device.getShareCode({ documentid: item.id })
+
+        if (code == 0) {
+            this.toast.hideLoading()
+
+            shareCodeMap[item.id] = code
+
+            this.setData({ showShareDrawBox: { code: data.code, item }, shareCodeMap })
+        } else {
+            return this.toast.showFailure(msg)
+        }
+    },
+
+    hideShareBox () {
+        this.clickAudio.play()
+
+        this.setData({ showShareDrawBox: null })
     },
 
     async del ({ currentTarget: { dataset: { src } } }) {
@@ -194,10 +250,21 @@ Page({
         })
     },
 
-    onShareAppMessage () {
-        return {
-            title: '欢迎使用' + global.baseTitle,
-            imageUrl: global.shareImg
+    onShareAppMessage ({ from, target = {} }) {
+        const { userInfo, showShareDrawBox } = this.data
+
+        if (from === 'button' && showShareDrawBox.item) {
+            this.clickAudio.play()
+
+            return {
+                title: `${userInfo.nick}给你分享了《${showShareDrawBox.item.name}》`,
+                path: `/pages/share/index?name=${showShareDrawBox.item.name}&id=${showShareDrawBox.item.id}&uid=${userInfo.openid}`
+            }
+        } else {
+            return {
+                title: '欢迎使用' + global.baseTitle,
+                imageUrl: global.shareImg,
+            }
         }
     }
 }) 
