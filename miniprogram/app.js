@@ -72,8 +72,8 @@ global.doLogin = ({ user_info, refresh = false } = {}) => {
 
         if (loginResCode == 0) {
           if (data.code != 1) {
-            const userInfo = {...data, deviceid: "123123gjhk1h23k1h2", vip_end_date: "2021/11/23 下午7:42:43", code: 'kjhskdhakhkh123'}
-            // const userInfo = data
+            // const userInfo = {...data, deviceid: "123123gjhk1h23k1h2", vip_end_date: "2021/11/23 下午7:42:43", code: 'kjhskdhakhkh123'}
+            const userInfo = data
             
             userInfo.validVip = userInfo.deviceid && +new Date(userInfo.vip_end_date) > Date.now()
 
