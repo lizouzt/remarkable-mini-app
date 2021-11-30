@@ -71,14 +71,22 @@
 
     <block wx:else>
       <block wx:for="{{docList}}" wx:key="index">
-        <view wx:if="{{item.type == 'DocumentType'}}"
-          class="doc-item mango fade-in-up" 
-          bindtap="showFileOperatePicker" 
+        <block wx:if="{{item.type == 'DocumentType'}}">
+          <view
+            class="doc-item mango fade-in-up" 
+            bindtap="showFileOperatePicker" 
+            data-index="{{index}}">
+            <view class="elps-1 mf"><mIcon type="img:file" size="16"/>{{ item.name }}</view>
+            <view class="elps-1">{{ item.LastModified }}</view>
+            <view>{{ item.Size }}</view>
+            <mIcon type="img:more" size="16"/>
+          </view>
+        </block>
+        <view wx:else
+          class="doc-item mango fade-in-up"
           data-index="{{index}}">
-          <view class="elps-1 mf"><mIcon type="img:file" size="16"/>{{ item.name }}</view>
-          <view class="elps-1">{{ item.LastModified }}</view>
-          <view>{{ item.Size }}</view>
-          <mIcon type="img:more" size="16"/>
+          <view class="elps-1 mf"><mIcon type="img:folder" size="16"/>{{ item.name }}</view>
+          <mIcon type="img:right_arrow" size="16"/>
         </view>
       </block>
       <view wx:if="{{!isLoading}}" class="m-tip">————— end —————</view>

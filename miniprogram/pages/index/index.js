@@ -4,13 +4,14 @@ import { getBtnAudioCtx, sleep, getRelativeTime, copyText } from '../../common/u
 const formateDocItem = (list) => {
     return list.map((item, index) => ({
         ...item,
-        Size: item.Size == 0 ? '-' : (item.Size / 1024 / 1024 + 'MB'),
-        LastModified: item.LastModified == '0001-01-01T00:00:00Z' ? '-' : getRelativeTime(item.LastModified)
+        Size: item.Size == 0 ? '大小' : (item.Size / 1024 / 1024 + 'MB'),
+        LastModified: item.LastModified == '0001-01-01T00:00:00Z' ? '时间' : getRelativeTime(item.LastModified)
     }))
 }
 
 Page({
     data: {
+        search: '',
         docList: [],
 
         userInfo: null,
@@ -80,11 +81,21 @@ Page({
         this.setData({ refresh: true })
     },
     
-    onSearch ({ detail: { value } }) {
-        console.log('value', 'value')
+    onSearch ({ detail }) {
+        const { docList, orgDocList } = this.data
+
+        const list = orgDocList || docList
+
+        const filterList = list.filter(item => item.name.indexOf(detail) > -1)
+
+        this.setData({ 
+            search: detail,
+            orgDocList: [...list],
+            docList: filterList
+        })
     },
     onClear () {
-
+        this.setData({ search: '', docList: this.data.orgDocList, orgDocList: null })
     },
 
     async onRefreshDoding () {
@@ -106,7 +117,11 @@ Page({
     },
 
     async loadList (page) {
-        const { pageNum, docList, userInfo } = this.data
+        const { pageNum, docList, userInfo, search } = this.data
+
+        if (search) {
+            return this.toast.showWarning('请先清除搜索', '目前搜索功能只针对已加载数据')
+        }
 
         if (!userInfo || !userInfo.deviceid) {
             console.log('未登录 或 未绑定设备')
