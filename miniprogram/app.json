@@ -1,34 +1,29 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/mine/index",
     "pages/orderList/main",
     "pages/checkout/index",
-    "pages/list/index",
-    "pages/index/index",
     "pages/webpage/index"
   ],
+  "darkmode": true,
+  "themeLocation": "theme.json",
   "window": {
-    "backgroundColor": "#F6F6F6",
+    "backgroundColor": "@bgColor",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarBackgroundColor": "@navBgColor",
     "navigationBarTitleText": "reMarkable | 管理助手",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "@navTxtStyle"
   },
   "tabBar": {
-    "selectedColor": "#000000",
+    "selectedColor": "@tarBarTxtStyle",
     "color": "#888888",
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "首页",
-        "iconPath": "./images/tupian.png",
-        "selectedIconPath": "./images/tupiantianchong.png"
-      },
-      {
-        "pagePath": "pages/list/index",
-        "text": "管理",
-        "iconPath": "./images/shipin.png",
-        "selectedIconPath": "./images/shipintianchong.png"
+        "text": "文件",
+        "iconPath": "./images/shangchuan.png",
+        "selectedIconPath": "./images/shangchuanchong.png"
       },
       {
         "pagePath": "pages/mine/index",

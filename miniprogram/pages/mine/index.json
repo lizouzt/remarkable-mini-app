@@ -1,6 +1,8 @@
 {
   "usingComponents": {
-    "Uploader": "../../components/uploader/index",
-    "Switch": "../../components/switch/index"
-  }
+    "Uploader": "/components/uploader/index",
+    "Switch": "/components/switch/index",
+    "mNav": "/components/nav/nav"
+  },
+  "navigationStyle": "custom"
 }

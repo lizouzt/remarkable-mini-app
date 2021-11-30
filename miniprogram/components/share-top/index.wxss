@@ -132,7 +132,7 @@
     background:0 0;
     border-radius:50%;
     border:2px solid #fff;
-    border-color:#fff #fff #fff #2d8cf0;
+    border-color:#fff #fff #fff #91ffab;
     animation:mst-loader .8s linear;
     animation-iteration-count:infinite
 }

@@ -13,8 +13,8 @@
   box-sizing: border-box;
   position: relative;
   box-shadow: 0 2px 4px #ccc;
-  color: #1989fa;
-  border: 1rpx solid #1989fa60;
+  color: #91ffab;
+  border: 1rpx solid #91ffab60;
 }
 
 .ha-item > view:nth-child(1) {

@@ -3,6 +3,7 @@ const sysInfo = wx.getSystemInfoSync()
 const sysData = {}
 
 sysData.deviceInfo = {
+  ...sysInfo,
   /* 普通手机 20 + 46 */
   navHeight: sysInfo.statusBarHeight + 46,
   /* 普通手机 49 */

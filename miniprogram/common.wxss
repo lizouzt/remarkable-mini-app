@@ -1,12 +1,13 @@
 /****
-@--btn-color: #1989fa;
-@--btn-gradient-color: linear-gradient(to right, #32c5ff, #1989fa);
+@--btn-color: #91ffab;
+@--btn-gradient-color: linear-gradient(to right, #32c5ff, #91ffab);
 @--text-title-color: #262626;
 @--text-color: #4c4c4c;
 @--text-tip: #bfbfbf;
 *****/
 @import "./style/addToSkeleton.wxss"
 @import "./style/section.wxss"
+@import "./Mango/Animation/mango.wxss"
 
 .m-panel {
   background: #fff;
@@ -17,11 +18,15 @@
   overflow: hidden;
 }
 
+.m-bshadow{
+  box-shadow: 0 0 3rpx #00000030;
+}
+
 .theme-btn-gradient {
-  background: linear-gradient(to right, #32c5ff, #1989fa)
+  background: linear-gradient(to right, #32c5ff, #91ffab)
 }
 .theme-btn{
-  background-color: #1989fa
+  background-color: #91ffab
 }
 
 .m-avatar{

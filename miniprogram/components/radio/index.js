@@ -22,7 +22,7 @@ Component({
         },
         color: {
             type: String,
-            value: '#2d8cf0'
+            value: '#91ffab'
         },
         position: {
             type: String,

@@ -10,6 +10,7 @@
       	type="text" 
       	class="sb__input" 
       	placeholder="{{placeholder}}" 
+        placeholder-class="sb--holder"
       	value="{{value}}" 
       	bindblur="inputBlur" 
       	bindfocus="inputFocus" 

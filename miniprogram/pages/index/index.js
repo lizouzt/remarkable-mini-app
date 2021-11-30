@@ -1,43 +1,66 @@
-import { User } from '../../manager/api'
-import { getBtnAudioCtx } from '../../common/utils'
+import { Device } from '../../manager/api'
+import { getBtnAudioCtx, sleep, getRelativeTime } from '../../common/utils'
 
-const transImageList = (list) => {
-    return list.map((item, index) => {
-        const ratio = item.width / (global.deviceInfo.windowWidth * 0.47)
-        return {
-            file: item.file, 
-            height: item.height / ratio
-        }
-    })
+const formateDocItem = (list) => {
+    return list.map((item, index) => ({
+        ...item,
+        Size: item.Size == 0 ? '-' : (item.Size / 1024 / 1024 + 'MB'),
+        LastModified: item.LastModified == '0001-01-01T00:00:00Z' ? '-' : getRelativeTime(item.LastModified)
+    }))
 }
 
 Page({
     data: {
-        images: [],
+        docList: [],
+
+        userInfo: null,
 
         isLoading: false,
+        refresh: false,
         pageNum: 1,
         end: false,
+
+        theme: 'light',
         navHeight: 66,
         navBgShow: false,
+        fixedContentHeight: 360,
     },
 
-    onLoad: function () {
-        this.HeaderScrollThreshold = global.deviceInfo.windowWidth * 0.4
+    async onLoad () {
+        this.toast = this.selectComponent("#toast")
 
-        this.setData({ navHeight: global.deviceInfo.navHeight + 46 })
+        const { navHeight, windowHeight, windowWidth, theme } = global.deviceInfo
+
+        this.setData({ 
+            navHeight: navHeight, 
+            fixedContentHeight: windowHeight - Math.ceil((0.29 + 0.09 + 0.04 + 0.02) * windowWidth) - navHeight,
+            theme: theme
+        })
 
         this.removeAudio = getBtnAudioCtx('/images/audio/shake.mp3')
-        this.toast = this.selectComponent("#toast")
-        
-        this.loadImages()
+        this.uploadAudio = getBtnAudioCtx('/images/audio/result.mp3')
+        this.clickAudio = getBtnAudioCtx('/images/audio/click.mp3')
+
+        await global.doLogin()
+
+        this.loadList()
     },
 
-    onShow () {
-        if (global.needRefresh) {
-            global.needRefresh = false
-            this.loadImages(1)
+    async onShow () {
+        this.setData({ userInfo: global.userInfo })
+
+        if (this.hideTime + 10 * 60 * 1e3 < Date.now()) {
+            this.hideTime = Date.now()
+            this.loadList(1)
         }
+    },
+
+    onHide () {
+        this.hideTime = Date.now()
+    },
+
+    onScrollBottom () {
+        !this.data.end && this.loadList()
     },
 
     onPageScroll ({ scrollTop }) {
@@ -48,61 +71,114 @@ Page({
         }
     },
 
-    loadImages: async function (page) {
-        const { pageNum, images } = this.data
+    onRefreshPulling () {
+        this.setData({ refresh: true })
+    },
+    async onRefreshDoding () {
+        await this.loadList(1)
+        this.onRefreshRestore()    
+    },
+    onRefreshRestore () {
+        this.setData({ refresh: false })
+    },
+
+    onEmptyClick () {
+        const { userInfo } = this.data
+
+        if (!userInfo || !userInfo.deviceid) {
+            wx.switchTab({ url: '/pages/mine/index' })
+        } else {
+            this.toast.showSuccess('设备同步中', '设备数据同步需要时间 请等等')
+        }
+    },
+
+    async loadList (page) {
+        const { pageNum, docList, userInfo } = this.data
+
+        if (!userInfo || !userInfo.deviceid) {
+            console.log('未登录 或 未绑定设备')
+            return false
+        }
+
         const tarPage = page || pageNum
         
         wx.showNavigationBarLoading()
         this.setData({ isLoading: true })
 
-        const { code, msg, data } = await User.fileList({ pageNum: tarPage, type: 'image' })
+        const { code, msg, data } = await Device.queryList({ page_num: tarPage, query: '' })
         
         if (code === 0) {
-            const list = data.list || []
+            const list = data.doclist || []
             const newData = { pageNum: tarPage + 1 }
 
             if (list.length < 5) {
                 newData.end = true
             }
-
+            console.log('tarPage', tarPage)
             if (tarPage === 1) {
-                newData.images = transImageList(list)
+                newData.docList = formateDocItem(list)
             } else {
-                newData.images = images.concat(transImageList(list))
+                newData.docList = docList.concat(formateDocItem(list))
             }
-
+            console.log('newData.docList', newData.docList)
             this.setData(newData)
         } else {
-            this.toast.showFailure('加载照片失败', msg)
+            this.toast.showFailure('加载文件列表失败', msg)
         }
 
         wx.hideNavigationBarLoading()
         this.setData({ isLoading: false })
     },
 
-    async del ({ currentTarget: { dataset: { src } } }) {
-        if (global.isMaster('ins')) {
-            const that = this
+    showFileOperatePicker ({ currentTarget: { dataset: { index } } }) {
+        this.clickAudio.play()
 
-            const { code } = await User.delFileInfo({type: 'image', file: src})
-            code === 0 && wx.cloud.deleteFile({ fileList: [src], success () { 
-                that.toast.showSuccess('操作成功') 
-                that.removeAudio.play()
-            } })
-        }
-    },
+        const item = this.data.docList[index]
 
-    imagePreview ({ currentTarget: { dataset: { src } } }) {
-        const { images } = this.data
-        
-        wx.previewImage({
-            current: src,
-            urls: images.map(item => item.file)
+        const that = this
+
+        item && wx.showActionSheet({
+            alertText: `文件《${item.name}》`,
+            itemList: ['下载', '分享', '删除'],
+            success ({ tapIndex }) {
+                if (tapIndex === 0) {
+                    that.downloadDoc(item)
+                } else if (tapIndex === 1) {
+                    that.shareDoc(item)
+                } else if (tapIndex === 2) {
+                    that.toast.showFailure('无法删除', '出于安全考虑不提供删除功能 请到设备操作')
+                }
+            }
         })
     },
 
-    onReachBottom () {
-        !this.data.end && this.loadImages()
+    async downloadDoc (item) {
+        this.toast.showLoading()
+
+        const { code, data, msg } = await Device.download({ documentid: item.id })
+
+        if (code == 0) {
+            this.toast.showSuccess('成功创建任务', '请到任务列表查看下载进度')
+        } else {
+            return this.toast.showFailure(msg)
+        }
+    },
+
+    async shareDoc () {
+
+    },
+
+    async del ({ currentTarget: { dataset: { src } } }) {
+        const that = this
+
+        const { code, msg } = await Device.delFile({fileId: src})
+        
+        if (code !== 0) {
+            return this.toast.showFailure(msg)
+        }
+
+        that.toast.showSuccess('操作成功') 
+        that.removeAudio.play()
     },
 
     openCustomService () {

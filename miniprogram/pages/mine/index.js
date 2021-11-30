@@ -9,12 +9,15 @@ Page({
       userInfo: false,
     },
 
+    navBgShow: false,
     loginPosting: false,
     doingGetCode: false,
     doingRidOfCode: false,
     doingStateRefresh: false,
 
     userInfo: null,
+
+    navHeight: global.deviceInfo.navHeight,
   },
   copyText: copyText,
   onLoad (options) {
@@ -22,10 +25,16 @@ Page({
     this.toast = this.selectComponent("#toast")
 
     this.clickAudio = getBtnAudioCtx('/images/audio/click.mp3')
-    this.uploadAudio = getBtnAudioCtx('/images/audio/result.mp3')
-    this.removeAudio = getBtnAudioCtx('/images/audio/shake.mp3')
 
     this.getUserInfo()
+  },
+
+  onPageScroll ({ scrollTop }) {
+    if (scrollTop > 88) {
+      !this.data.navBgShow && this.setData({ navBgShow: true })
+    } else {
+      this.data.navBgShow && this.setData({ navBgShow: false })
+    }
   },
 
   async getUserInfo (options) {

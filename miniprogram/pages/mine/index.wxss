@@ -4,11 +4,20 @@ page {
   font-size: 14px;
 }
 
+.h-nav{
+  position: relative;
+  filter: contrast(10%) brightness(10%);
+  animation: all 3s linear 1;
+}
+.h-nav.active{
+  box-shadow: 0 6rpx 6rpx #00000020;
+  filter: contrast(118%) brightness(118%);
+}
+
 .container {
   box-sizing: border-box;
   white-space: nowrap;
   overflow-y: auto;
-  display: initial;
 }
 
 .container .m-title{
@@ -25,11 +34,13 @@ page {
 
 .m-header{
   width: 100%;
-}
-
-.m-header .m-panel{
   position: relative;
   overflow: visible;
+}
+
+.m-header image{
+  display: block;
+  margin: 0 auto;
 }
 
 .mh-link{
@@ -41,16 +52,16 @@ page {
 }
 
 .mh-title{
-  font-size: 66rpx;
-  padding: 5vw 5vw 0 128rpx;
+  font-size: 56rpx;
+  padding: 0 5vw 0 128rpx;
   
   background-image: 
   -webkit-gradient( linear, left top, right top, 
-  color-stop(0, #ee3f4d), 
-  color-stop(0.15, #d00000), 
-  color-stop(0.45, #f48c06), 
-  color-stop(0.75, #ffba08), 
-  color-stop(1, #ffba08) );
+  color-stop(0, #91ffab), 
+  color-stop(0.15, #91ffab), 
+  color-stop(0.45, #033e11), 
+  color-stop(0.75, #033e11), 
+  color-stop(1, #91ffab) );
   color: transparent;
   -webkit-background-clip: text;
   -moz-background-clip: text;
@@ -64,8 +75,8 @@ page {
   overflow: hidden;
   display: float;
   position: absolute;
-  left: 32px;
-  top: 8vw;
+  left: 22px;
+  top: 1.3vw;
 }
 
 .mh-avatar image{
@@ -80,7 +91,7 @@ page {
   border-radius: 20rpx;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  padding: 60rpx 5vw 10rpx;
+  padding: 30rpx 5vw 10rpx;
 }
 
 .mh-info view:first-child{

@@ -57,8 +57,9 @@
 }
 
 .i-btn-primary {
-    color: #fff !important;
-    background: #1989fa !important;
+    color: #555 !important;
+    background: #91ffab !important;
+    box-shadow: none !important;
 }
 
 .i-btn-ghost {

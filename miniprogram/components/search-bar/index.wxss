@@ -39,11 +39,16 @@
 }
 
 .sb__input {
+  color: #333;
   height: 30px;
   line-height: 30px;
   font-size: 12px;
   flex: 1 0;
-  caret-color: #1989fa
+  caret-color: #10cc3c
+}
+
+.sb--holder{
+  color: #999;
 }
 
 .weui-icon-clear icon {

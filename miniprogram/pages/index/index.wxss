@@ -1,26 +1,38 @@
+page {
+  height: 100vh;
+  overflow: hidden;
+}
+
 page, .container{
   background-color: #02a9f1;
 }
 
-.hn_bar{
+.container{
+  padding-bottom: 0;
+  overflow: hidden;
+}
+
+.hn-bar{
   padding: 0 2vw;
   justify-content: flex-start;
 }
-.hn_logo{
-  height: 36px;
-  width: 36px;
-  border-radius: 36px;
+.hn-logo{
+  height: 56rpx;
+  width: 56rpx;
+  border-radius: 56rpx;
   overflow: hidden;
 }
-.hn_logo image{
+.hn-logo image{
   width: 100%;
   height: 100%;
   display: block;
 }
 
-.hn_ctl{
+.hn-ctl{
   justify-content: space-around;
   color: #fff;
+  height: 9vw;
+  line-height: 9vw;
   font-size: 16px;
   font-weight: 600;
 }
@@ -34,37 +46,28 @@ page, .container{
  * Top head photo
  */
 .f-head{
+  height: 23vw;
   width: 100%;
   overflow: hidden;
   position: relative;
+  margin: 5vw 0 1vw;
   z-index: 1;
-}
-
-.f-head image{
-  height: 46vw;
-  width: 92vw;
-  margin: 0 auto;
-  display: block;
   animation: brightness 3s linear 1;
   filter: contrast(110%) brightness(150%);
 }
 
-.fh-text{
-  position: absolute;
-  font-size: 64px;
-  color: transparent;
-  text-shadow: 0px 0px 1em #fff ease-in-out;
-  left: 20%;
-  top: 26%;
-  opacity: .6;
-  filter: blur(0.01em);
-  -webkit-filter: blur(0.01em);
-  /*animation: blink 1s infinite linear;*/
-  -webkit-text-fill-color: transparent;
+.fh-tip{
+  font-size: 22rpx;
+  color: #fff;
+  text-align: center;
 }
-.f-clock{
-  margin-bottom: 4vw;
+.f-head image{
+  height: 13vw;
+  width: 23vw;
+  margin: 0 auto 1vw;
+  display: block;
 }
+
 @keyframes brightness {
   0% {
     filter: contrast(30%) brightness(20%);
@@ -106,24 +109,46 @@ page, .container{
 
 /*** header ***/
 
-.img_list {
+.doc-list {
   background-color: #fff;
   border-radius: 8px;
   padding: 2vw;
   margin: 0 2vw;
   width: 92vw;
-  column-count: 2;
-  column-gap: 2vw;
 }
 
-.img_item{
-  margin-bottom: 1vw;
+.doc-empty{
+  padding: 6vw;
+}
+.doc-empty image{
+  height: 39vw;
+  width: 66vw;
   display: block;
-  overflow: hidden;
+  margin: 0 auto;
 }
 
-.img_item image{
-  background-color: #eaeaea;
-  border-radius: 2vw;
-  width: 100%;
+.doc-item{
+  margin-bottom: 1vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3vw 2vw;
+  border-bottom: 1rpx solid #cacaca;
+}
+
+.doc-item:last-child{
+  border-bottom: none;
+}
+.doc-item view:first-child{
+  width: 53%;
+}
+.doc-item view:nth-child(2){
+  width: 15%;
+}
+.doc-item view:nth-child(n+3){
+  width: 10%;
+}
+
+.doc-item view:first-child mIcon{
+  margin: 0 1vw
 }

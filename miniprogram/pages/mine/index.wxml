@@ -1,22 +1,28 @@
-<view class="container">
+<mNav 
+  alwaysShow 
+  transparent="{{!navBgShow}}">
+  <view class="h-nav m-flex {{navBgShow ? 'active' : ''}}">
+    <view class="mh-avatar">
+      <image src="/images/logo.png"/>
+    </view>
+    <view class="mh-title mf">& reMarkable</view>
+  </view>
+</mNav>
+
+<view class="container" style="padding-top: {{navHeight}}px">
   <view class="m-header">
-    <view class="m-panel">
-      <view class="mh-avatar">
-        <image src="/images/logo.png"/>
-      </view>
-      <view class="mh-title mf">& reMarkable</view>
-      <view class="mh-info">
-        <view class="elps-1">云服务助手</view>
-        <view class="elps-1">
-          私有云服务助手 隐私、安全、高效
-          <navigator 
-            hover-class="m-link-silence"
-            open-type="navigate"
-            class="mh-link"
-            url="/pages/webpage/index?url=https://apps.yowubuy.com/rental/viewer.html?p=https://rental-rexue.oss-cn-beijing.aliyuncs.com/pros/privacy.jpg">
-            隐私<mIcon type="prompt" size="16" weight="600" color="#aaa"/>
-          </navigator>
-        </view>
+    <image src="/images/theme/banner.png" />
+    <view class="mh-info">
+      <view class="elps-1">云服务助手</view>
+      <view class="elps-1">
+        私有云服务助手 隐私、安全、高效
+        <navigator 
+          hover-class="m-link-silence"
+          open-type="navigate"
+          class="mh-link"
+          url="/pages/webpage/index?url=https://apps.yowubuy.com/rental/viewer.html?p=https://rental-rexue.oss-cn-beijing.aliyuncs.com/pros/privacy.jpg">
+          隐私<mIcon type="prompt" size="16" weight="600" color="#aaa"/>
+        </navigator>
       </view>
     </view>
   </view>
@@ -80,7 +86,7 @@
           <view>设备ID</view>
           <view>{{userInfo.deviceid}}</view>
         </view>
-        <view wx:else class="m-s-item">
+        <view wx:elif="{{userInfo.code}}" class="m-s-item">
           <view>刷新绑定状态</view>
           <view>
             <mButton 
@@ -135,8 +141,6 @@
       </block>
 
       <block wx:if="{{skRegion.userInfo}}">
-        <view class="m-sk rect"></view>
-        <view class="m-sk rect"></view>
         <view class="m-sk rect"></view>
       </block>
     </view>
