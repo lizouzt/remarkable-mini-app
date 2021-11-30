@@ -29,6 +29,29 @@
   background-color: #91ffab
 }
 
+.m-big{
+  font-size: 66rpx;
+  color: #91ffab;
+  text-align: center;
+  text-shadow: 0 0 2px #aaa
+}
+.m-big sub{
+  text-shadow: none;
+}
+
+.m-b1{
+  margin-bottom: 1vw
+}
+.m-b2{
+  margin-bottom: 2vw
+}
+.m-t1{
+  margin-top: 1vw
+}
+.m-t2{
+  margin-top: 2vw
+}
+
 .m-avatar{
   overflow: hidden;
   border-radius: 100%;
@@ -68,10 +91,17 @@
   color: #bfbfbf;
   text-align: center;
   font-size: 12px;
-  padding: 6px 0
+  padding: 6px 0;
+  overflow: hidden;
+}
+.m-empty > image{
+  display: block;
+  width: 60vw;
+  height: 36vw;
+  margin: 10vw auto
 }
 .m-empty > text{
-  margin-left: -20px
+  /*margin-left: -20px*/
 }
 .m-empty > mIcon{
   display: block;
@@ -136,6 +166,10 @@ page button.m-btn-clear{
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.m-around{
+  justify-content: space-around;
 }
 
 .m-link-hover {

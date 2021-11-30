@@ -39,4 +39,11 @@ export default class DeviceService extends BaseService {
             data: options
         })
     }
+    async getShareCode(options) {
+        return { code: 0, data: { code: '628723' } }
+        // return await this.request({
+        //     url: '/ui/api/download',
+        //     data: options
+        // })
+    }
 }

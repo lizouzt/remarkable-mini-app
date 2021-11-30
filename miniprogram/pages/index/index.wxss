@@ -52,7 +52,7 @@ page, .container{
   position: relative;
   margin: 5vw 0 1vw;
   z-index: 1;
-  animation: brightness 3s linear 1;
+  animation: brightness 2s linear 1;
   filter: contrast(110%) brightness(150%);
 }
 
@@ -116,6 +116,10 @@ page, .container{
   margin: 0 2vw;
   width: 92vw;
 }
+.doc-list.empty{
+  margin-top: 66px;
+  height: 268px !important
+}
 
 .doc-empty{
   padding: 6vw;
@@ -152,3 +156,33 @@ page, .container{
 .doc-item view:first-child mIcon{
   margin: 0 1vw
 }
+
+.share-box{
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0,0,0,.3);
+  pointer-events: none;
+  z-index: -1;
+}
+.share-box.fade-in-up{
+  z-index: 4;
+  pointer-events: auto;
+}
+.sb-inner{
+  width: 66vw;
+  padding: 3vw 6vw;
+  position: absolute;
+  bottom: 20vw;
+  left: 11vw;
+  background-color: #fff;
+  border-radius: 4vw;
+}
+.sb-inner .m-title{
+  width: 60vw
+}
+
+
+

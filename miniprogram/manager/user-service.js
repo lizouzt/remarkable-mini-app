@@ -59,4 +59,11 @@ export default class UserService extends BaseService {
             data: options
         })
     }
+    async queryTask(options) {
+        return await this.request({
+            url: '/api/task/query',
+            method: 'POST',
+            data: options
+        })
+    }
 }

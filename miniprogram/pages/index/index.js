@@ -1,5 +1,5 @@
 import { Device } from '../../manager/api'
-import { getBtnAudioCtx, sleep, getRelativeTime } from '../../common/utils'
+import { getBtnAudioCtx, sleep, getRelativeTime, copyText } from '../../common/utils'
 
 const formateDocItem = (list) => {
     return list.map((item, index) => ({
@@ -15,6 +15,9 @@ Page({
 
         userInfo: null,
 
+        showShareDrawBox: null,
+        shareCodeMap: {},
+
         isLoading: false,
         refresh: false,
         pageNum: 1,
@@ -25,7 +28,7 @@ Page({
         navBgShow: false,
         fixedContentHeight: 360,
     },
-
+    copyText: copyText,
     async onLoad () {
         this.toast = this.selectComponent("#toast")
 
@@ -47,9 +50,11 @@ Page({
     },
 
     async onShow () {
+        const curUserInfo = this.data.userInfo
+
         this.setData({ userInfo: global.userInfo })
 
-        if (this.hideTime + 10 * 60 * 1e3 < Date.now()) {
+        if ((!curUserInfo && global.userInfo) || this.hideTime + 10 * 60 * 1e3 < Date.now()) {
             this.hideTime = Date.now()
             this.loadList(1)
         }
@@ -74,6 +79,14 @@ Page({
     onRefreshPulling () {
         this.setData({ refresh: true })
     },
+    
+    onSearch ({ detail: { value } }) {
+        console.log('value', 'value')
+    },
+    onClear () {
+
+    },
+
     async onRefreshDoding () {
         await this.loadList(1)
         this.onRefreshRestore()    
@@ -106,7 +119,8 @@ Page({
         this.setData({ isLoading: true })
 
         const { code, msg, data } = await Device.queryList({ page_num: tarPage, query: '' })
-        
+        await sleep(1.5e3)
+
         if (code === 0) {
             const list = data.doclist || []
             const newData = { pageNum: tarPage + 1 }
@@ -114,12 +128,13 @@ Page({
             if (list.length < 5) {
                 newData.end = true
             }
-            console.log('tarPage', tarPage)
+            
             if (tarPage === 1) {
                 newData.docList = formateDocItem(list)
             } else {
                 newData.docList = docList.concat(formateDocItem(list))
             }
+
             console.log('newData.docList', newData.docList)
             this.setData(newData)
         } else {
@@ -141,6 +156,8 @@ Page({
             alertText: `文件《${item.name}》`,
             itemList: ['下载', '分享', '删除'],
             success ({ tapIndex }) {
+                that.clickAudio.play()
+
                 if (tapIndex === 0) {
                     that.downloadDoc(item)
                 } else if (tapIndex === 1) {
@@ -164,8 +181,32 @@ Page({
         }
     },
 
-    async shareDoc () {
+    async shareDoc (item) {
+        const { shareCodeMap } = this.data
 
+        if (shareCodeMap[item.id]) {
+            return this.setData({ showShareDrawBox: { code: shareCodeMap[item.id], item } })
+        }
+
+
+        this.toast.showLoading()
+        const { code, data, msg } = await Device.getShareCode({ documentid: item.id })
+
+        if (code == 0) {
+            this.toast.hideLoading()
+
+            shareCodeMap[item.id] = code
+
+            this.setData({ showShareDrawBox: { code: data.code, item }, shareCodeMap })
+        } else {
+            return this.toast.showFailure(msg)
+        }
+    },
+
+    hideShareBox () {
+        this.clickAudio.play()
+
+        this.setData({ showShareDrawBox: null })
     },
 
     async del ({ currentTarget: { dataset: { src } } }) {
@@ -194,10 +235,21 @@ Page({
         })
     },
 
-    onShareAppMessage () {
-        return {
-            title: '欢迎使用' + global.baseTitle,
-            imageUrl: global.shareImg
+    onShareAppMessage ({ from, target = {} }) {
+        const { userInfo, showShareDrawBox } = this.data
+
+        if (from === 'button' && showShareDrawBox.item) {
+            this.clickAudio.play()
+
+            return {
+                title: `${userInfo.nick}给你分享了《${showShareDrawBox.item.name}》`,
+                path: `/pages/share/index?name=${showShareDrawBox.item.name}&id=${showShareDrawBox.item.id}&uid=${userInfo.openid}`
+            }
+        } else {
+            return {
+                title: '欢迎使用' + global.baseTitle,
+                imageUrl: global.shareImg,
+            }
         }
     }
 }) 

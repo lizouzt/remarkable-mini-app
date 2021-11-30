@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/task/main",
     "pages/mine/index",
     "pages/orderList/main",
     "pages/checkout/index",
@@ -22,8 +23,8 @@
       {
         "pagePath": "pages/index/index",
         "text": "文件",
-        "iconPath": "./images/shangchuan.png",
-        "selectedIconPath": "./images/shangchuanchong.png"
+        "iconPath": "./images/task.png",
+        "selectedIconPath": "./images/taskchong.png"
       },
       {
         "pagePath": "pages/mine/index",
@@ -36,7 +37,6 @@
   "sitemapLocation": "sitemap.json",
   "style": "v2",
   "usingComponents": {
-    "mSkeleton": "/components/skeleton/index",
     "mButton": "components/button/index",
     "mIcon": "components/icon/index",
     "mToast": "/components/toast/toast",
