@@ -66,4 +66,9 @@ export default class UserService extends BaseService {
             data: options
         })
     }
+    async getOssToken(options) {
+        return await this.request({
+            url: '/api/getoss'
+        })
+    }
 }

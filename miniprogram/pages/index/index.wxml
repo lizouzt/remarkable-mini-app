@@ -40,9 +40,35 @@
       <view>任务</view>
     </navigator>
   </view>
-  <view class="f-head">
+  <button class="f-head m-btn-clear"
+    bindtap="onFileUpload">
     <image src="/images/theme/ppp.png"/>
     <view class="fh-tip mf mango fade-in-up">点 击 上 传 文 件</view>
+  </button>
+
+  <view class="doc-path m-flex m-start">
+    <block wx:if="{{docPathStack.length > 1}}">
+      <mButton 
+        inline 
+        width="16vw"
+        size="small"
+        type="ghost" 
+        bindtap="onFolderBack" 
+        border="{{false}}">
+        <mIcon type="return" size="16"/>
+        返回
+      </mButton>
+      <view>{{docPathStack.join('/')}}</view>
+    </block>
+    <mButton
+      wx:else 
+      inline 
+      width="16vw"
+      size="small"
+      type="ghost" 
+      border="{{false}}">
+      <mIcon type="homepage" size="16"/> /
+    </mButton>
   </view>
 
   <scroll-view 
@@ -58,18 +84,20 @@
     bindscrolltolower="onScrollBottom"
     class="doc-list {{(!userInfo || !userInfo.deviceid || !docList.length) ? 'empty' : ''}}" 
     style="height: {{fixedContentHeight}}px">
-    <view wx:if="{{!docList.length}}" 
-      class="doc-empty mango fade-in-up">
-      <image src="/images/theme/no-item.png"/>
-      <mButton wx:if="{{!isLoading}}"
-        type="primary" 
-        share="circle" 
-        bindtap="onEmptyClick">
-        {{ userInfo && userInfo.deviceid ? '数据同步中' : '快去绑定设备吧' }}
-      </mButton>
-    </view>
 
-    <block wx:else>
+    <block wx:if="{{!docList.length}}" >
+      <view class="doc-empty mango fade-in-up">
+        <image src="/images/theme/no-item.png"/>
+        <mButton wx:if="{{!isLoading}}"
+          type="primary" 
+          share="circle" 
+          bindtap="onEmptyClick">
+          {{ userInfo && userInfo.deviceid ? (docListStack.length ? '空文件夹' : '数据同步中') : '快去绑定设备吧' }}
+        </mButton>
+      </view>
+    </block>
+
+    <view wx:else>
       <block wx:for="{{docList}}" wx:key="index">
         <block wx:if="{{item.type == 'DocumentType'}}">
           <view
@@ -84,16 +112,19 @@
         </block>
         <view wx:else
           class="doc-item mango fade-in-up"
+          bindtap="showFolder"
           data-index="{{index}}">
           <view class="elps-1 mf"><mIcon type="img:folder" size="16"/>{{ item.name }}</view>
           <mIcon type="img:right_arrow" size="16"/>
         </view>
       </block>
-      <view wx:if="{{!isLoading}}" class="m-tip">————— end —————</view>
-    </block>
-
+    </view>
+    
     <view wx:if="{{isLoading}}" class="mango fade-in-up">
       <view class="m-sk rect10"></view>
+    </view>
+    <view wx:elif="{{docList.length}}" class="m-tip">
+      ————— end —————
     </view>
   </scroll-view>
 

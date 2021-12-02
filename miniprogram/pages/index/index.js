@@ -5,7 +5,8 @@ const formateDocItem = (list) => {
     return list.map((item, index) => ({
         ...item,
         Size: item.Size == 0 ? '大小' : (item.Size / 1024 / 1024 + 'MB'),
-        LastModified: item.LastModified == '0001-01-01T00:00:00Z' ? '时间' : getRelativeTime(item.LastModified)
+        LastModified: /0001/.test(item.LastModified) ? '时间' : getRelativeTime(item.LastModified),
+        children: item.children ? formateDocItem(item.children) : undefined,
     }))
 }
 
@@ -13,6 +14,8 @@ Page({
     data: {
         search: '',
         docList: [],
+        docListStack: [],
+        docPathStack: ['Root'],
 
         userInfo: null,
 
@@ -37,7 +40,7 @@ Page({
 
         this.setData({ 
             navHeight: navHeight, 
-            fixedContentHeight: windowHeight - Math.ceil((0.29 + 0.09 + 0.04 + 0.02) * windowWidth) - navHeight,
+            fixedContentHeight: windowHeight - Math.ceil((0.38 + 0.09 + 0.04 + 0.02) * windowWidth) - navHeight,
             theme: theme
         })
 
@@ -98,6 +101,94 @@ Page({
         this.setData({ search: '', docList: this.data.orgDocList, orgDocList: null })
     },
 
+    onFileUpload () {
+        const { userInfo } = this.data
+
+        if (false && (!userInfo || !userInfo.deviceid)) {
+            return this.toast.showWarning('未绑定Rm设备', '绑定设备之后才能上传文件')
+        }
+
+        wx.chooseMessageFile({
+            count: 1,
+            type: 'file',
+            async success (res) {
+                const [ tempFilePaths ] = res.tempFiles
+                
+                const ossSignData = await this.getOssSign(tempFilePaths)
+
+                ossSignData && this.doUpload(tempFilePaths, ossSignData)
+            },
+            fail (error) {
+                this.toast.showFailure(error.errMsg || error.message)
+            }
+        })
+    },
+
+    async getOssSign () {
+        const { code, msg, data } = await User.getOssToken({file: tempFilePaths})
+        
+        if (code !== 0) {
+            this.toast.showWarning('上传失败', msg)
+
+            return false
+        } else {
+            return data
+        }
+    },
+
+    async doUpload (file, signData) {
+        const that = this
+
+        const typeMatch = file.match(/\.(\S{3,10})$/i)
+        const fileType = typeMatch ? typeMatch[0] : ''
+
+        const tarFilePath = `/rm/upload/${randomName()}${fileType}`
+
+        that.setData({ uploadProgress: 0 })
+
+        that.uploadTask = wx.uploadFile({
+            url: global.modeConf.ossHost,
+            filePath: videoFileUrl,
+            name: 'file',
+            formData: {
+                key: tarFilePath,
+                policy: signData.policy,
+                OSSAccessKeyId: signData.OSSAccessKeyId,
+                success_action_status: signData.success_action_status,
+                signature: signData.signature
+            },
+            success ({errMsg}) {
+                console.log('res', arguments[0])
+
+                if ("uploadFile:ok" == errMsg) {
+                    that.setData({
+                        refundVideo: `${global.modeConf.ossHost}/${tarFilePath}`,
+                        uploadProgress: -1
+                    })
+                } else {
+                    that.toast.showFailure(errMsg || '上传视频失败 请稍后重试!')
+
+                    that.setData({ uploadProgress: -1 })
+                }
+            },
+            fail ({errMsg}) {
+                that.toast.showFailure(errMsg || '上传视频失败 请稍后重试!')
+
+                that.setData({ uploadProgress: -1 })
+            }
+        })
+
+        that.uploadTask.onProgressUpdate(res => {
+            console.log('上传进度', res.progress)
+
+            that.setData({ uploadProgress: res.progress })
+        })
+    },
+
+    abortUpload () {
+        this.uploadTask.abort()
+    },
+
     async onRefreshDoding () {
         await this.loadList(1)
         this.onRefreshRestore()    
@@ -107,7 +198,11 @@ Page({
     },
 
     onEmptyClick () {
-        const { userInfo } = this.data
+        const { userInfo, docListStack } = this.data
+
+        if (docListStack.length) {
+            return this.onFolderBack()
+        }
 
         if (!userInfo || !userInfo.deviceid) {
             wx.switchTab({ url: '/pages/mine/index' })
@@ -182,6 +277,32 @@ Page({
                 }
             }
         })
+    },
+
+    showFolder ({ currentTarget: { dataset: { index } } }) {
+        this.clickAudio.play()
+
+        const { docList, docListStack, docPathStack } = this.data
+
+        const item = docList[index]
+
+        if (!item.children) return false
+
+        docListStack.push(docList)
+        docPathStack.push(item.name)
+
+        this.setData({ docList: item.children, docListStack, docPathStack })
+    },
+
+    onFolderBack () {
+        this.clickAudio.play()
+        
+        const { docListStack, docPathStack } = this.data
+
+        const docList = docListStack.pop()
+        docPathStack.pop()
+
+        this.setData({ docList, docListStack, docPathStack, search: '' })
     },
 
     async downloadDoc (item) {

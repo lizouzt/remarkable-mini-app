@@ -50,10 +50,15 @@ page, .container{
   width: 100%;
   overflow: hidden;
   position: relative;
-  margin: 5vw 0 1vw;
+  margin: 5vw 0 1vw !important;
   z-index: 1;
+}
+.f-head image{
   animation: brightness 2s linear 1;
   filter: contrast(110%) brightness(150%);
+}
+.f-head:active image{
+  filter: contrast(80%) brightness(60%);
 }
 
 .fh-tip{
@@ -111,14 +116,29 @@ page, .container{
 
 .doc-list {
   background-color: #fff;
-  border-radius: 8px;
-  padding: 2vw;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  padding: 0 2vw;
   margin: 0 2vw;
   width: 92vw;
+  position: relative;
+  z-index: 1;
 }
 .doc-list.empty{
-  margin-top: 66px;
-  height: 268px !important
+  height: 318px !important
+}
+
+.doc-path{
+  top: 0;
+  height: 9vw;
+  margin: 0 2vw;
+  /*padding: 0 2vw;*/
+  background: #fff;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom: 1rpx solid #aaa;
+  position: relative;
+  z-index: 2;
 }
 
 .doc-empty{
@@ -139,6 +159,7 @@ page, .container{
   padding: 3vw 2vw;
   border-bottom: 1rpx solid #cacaca;
 }
+
 
 .doc-item:last-child{
   border-bottom: none;

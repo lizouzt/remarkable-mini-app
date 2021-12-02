@@ -172,6 +172,10 @@ page button.m-btn-clear{
   justify-content: space-around;
 }
 
+.m-start{
+  justify-content: flex-start;
+}
+
 .m-link-hover {
   opacity: 0.9;
 }
