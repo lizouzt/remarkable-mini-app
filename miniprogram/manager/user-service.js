@@ -12,7 +12,7 @@ export default class UserService extends BaseService {
     }
     async login(options) {
         return await this.request({
-            url: '/api/wxapp/user/login',
+            url: '/api/login',
             method: 'post',
             data: options
         }, true)
@@ -59,16 +59,23 @@ export default class UserService extends BaseService {
             data: options
         })
     }
-    async queryTask(options) {
+    async queryTaskList(options) {
         return await this.request({
             url: '/api/task/query',
-            method: 'POST',
+            method: 'post',
             data: options
-        })
+        }, true)
     }
     async getOssToken(options) {
         return await this.request({
             url: '/api/getoss'
+        })
+    }
+    async upload(options) {
+        return await this.request({
+            url: '/api/upload',
+            method: 'POST',
+            data: options
         })
     }
 }

@@ -42,12 +42,20 @@
   </view>
   <button class="f-head m-btn-clear"
     bindtap="onFileUpload">
-    <image src="/images/theme/ppp.png"/>
-    <view class="fh-tip mf mango fade-in-up">点 击 上 传 文 件</view>
+    <block wx:if="{{uploadProgress === -1}}">
+      <image src="/images/theme/ppp.png"/>
+      <view class="fh-tip mf mango fade-in-up">点 击 上 传 文 件 至 当 前 路 径</view>
+    </block>
+    <block wx:else>
+      <view class="m-progress">
+        {{ uploadProgress }}
+        <sub>%</sub>
+      </view>
+    </block>
   </button>
 
   <view class="doc-path m-flex m-start">
-    <block wx:if="{{docPathStack.length > 1}}">
+    <block wx:if="{{docListStack.length > 0}}">
       <mButton 
         inline 
         width="16vw"
@@ -58,7 +66,7 @@
         <mIcon type="return" size="16"/>
         返回
       </mButton>
-      <view>{{docPathStack.join('/')}}</view>
+      <view>{{docPathStack}}</view>
     </block>
     <mButton
       wx:else 

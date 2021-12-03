@@ -65,7 +65,7 @@ export default class BaseService {
             if (data.status && data.status.state == 5) {
               clearUser()
               wx.hideNavigationBarLoading()
-              wx.redirectTo({ url: '/pages/mine/index' })
+              wx.switchTab({ url: '/pages/mine/index' })
             } else {
               if (!data.status) {
                 if (data.constructor == String) {

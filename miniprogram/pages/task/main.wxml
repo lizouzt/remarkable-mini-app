@@ -14,30 +14,19 @@
                 {{task.create_time}}
             </view>
             <view>
-                {{TaskStateMap[task.state]}}
+                {{TaskStateMap[task.task_state]}}
             </view>
         </view>
 
         <view class="ol-i-sku" wx:for="{{task.goods_info}}" wx:key="id">
             <view class="ol-i-info">
-                <view class="ol-ii-tit elps-2">{{item.name}}</view>
+                <view class="ol-ii-tit elps-2">{{TaskTypeMap[item.type]}}《{{item.file_name}}》</view>
             </view>
-            <view class="ol-i-price">
-                <view class="ol-ip-i"><span>{{exchangeUnit}}</span>{{item.s_price}}</view>
-                <view class="ol-ip-i"><span>x</span>{{item.amount}}</view>
-            </view>
-            <mIcon wx:if="{{item.refunded}}" color="#666" type="custom:refund" size="36"/>
         </view>
 
         <view class="ol-i-settle m-flex">
             <view class="ol-type elps-1" bindtap="copyText" data-text="{{task.id}}">
-                订单ID：{{task.id}}
-            </view>
-            <view class="ol-is-sum">
-                <view class="ol-iss-str">
-                    实际支付金额：
-                    <small>{{exchangeUnit}}</small>
-                </view>
+                任务ID：{{task.id}}
             </view>
         </view>
 
@@ -52,7 +41,7 @@
         </view>
     </view>
 
-    <view wx:if="{{end}}" class="m-tip">老板！这已经是底线啦</view>
+    <view wx:if="{{end}}" class="m-tip">---  END  ---</view>
     
     <!-- TODO::商品推荐 -->
 </view>

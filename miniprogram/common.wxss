@@ -184,6 +184,29 @@ page button.m-btn-clear{
   opacity: 1;
 }
 
+.m-progress {
+  color: #fff;
+  width: 31vw;
+  height: 11vw;
+  line-height: 11vw;
+  border-radius: 11vw;
+  border: 3px solid #fff;
+  box-shadow: 0 0 26px #91ffab, 0 0 36px #91ffab inset;
+  text-align: center;
+  letter-spacing: 4px;
+  font-weight: 900;
+  font-size: 6vw;
+  text-shadow: -3px 3px 3px #000000, 0 0 2px #f10db3;
+  position: relative;
+  margin: 3vw auto;
+}
+.m-progress sub{
+  top: 5vw;
+  font-size: 3vw;
+  line-height: 4vw;
+  position: absolute;
+}
+
 .elps-1 {
   overflow: hidden;
   text-overflow: ellipsis;

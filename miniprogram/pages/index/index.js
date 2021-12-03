@@ -1,4 +1,4 @@
-import { Device } from '../../manager/api'
+import { Device, User } from '../../manager/api'
 import { getBtnAudioCtx, sleep, getRelativeTime, copyText } from '../../common/utils'
 
 const formateDocItem = (list) => {
@@ -15,7 +15,9 @@ Page({
         search: '',
         docList: [],
         docListStack: [],
-        docPathStack: ['Root'],
+        docPathStack: '',
+
+        uploadProgress: -1,
 
         userInfo: null,
 
@@ -40,7 +42,7 @@ Page({
 
         this.setData({ 
             navHeight: navHeight, 
-            fixedContentHeight: windowHeight - Math.ceil((0.38 + 0.09 + 0.04 + 0.02) * windowWidth) - navHeight,
+            fixedContentHeight: windowHeight - Math.ceil((0.30 + 0.09 + 0.04 + 0.02) * windowWidth) - navHeight,
             theme: theme
         })
 
@@ -102,30 +104,50 @@ Page({
     },
 
     onFileUpload () {
-        const { userInfo } = this.data
+        const that = this
+        const { userInfo, uploadProgress } = that.data
 
-        if (false && (!userInfo || !userInfo.deviceid)) {
-            return this.toast.showWarning('未绑定Rm设备', '绑定设备之后才能上传文件')
+        if (!userInfo || !userInfo.deviceid) {
+            return that.toast.showWarning('未绑定Rm设备', '绑定设备之后才能上传文件')
         }
+
+        if (uploadProgress > -1) {
+            return wx.showModal({
+                title: '是否取消？',
+                content: '当前文件正在上传',
+                success (res) {
+                    if (res.confirm) {
+                        this.abortUpload()
+                    }
+                }
+            })
+        }
+
+        that.uploadAudio.play()
 
         wx.chooseMessageFile({
             count: 1,
             type: 'file',
             async success (res) {
                 const [ tempFilePaths ] = res.tempFiles
-                
-                const ossSignData = await this.getOssSign(tempFilePaths)
+                console.log('tempFilePaths', tempFilePaths)
 
-                ossSignData && this.doUpload(tempFilePaths, ossSignData)
+                if (tempFilePaths.size / 1e6 > 200) {
+                    return that.toast.showWarning('文件大小超限', '微信最大支持同步200MB的文件')
+                }
+
+                const ossSignData = await that.getOssSign(tempFilePaths)
+
+                ossSignData && that.doUpload(tempFilePaths, ossSignData)
             },
             fail (error) {
-                this.toast.showFailure(error.errMsg || error.message)
+                that.toast.showFailure(error.errMsg || error.message)
             }
         })
     },
 
-    async getOssSign () {
-        const { code, msg, data } = await User.getOssToken({file: tempFilePaths})
+    async getOssSign (fileInfo) {
+        const { code, msg, data } = await User.getOssToken({file: fileInfo})
         
         if (code !== 0) {
             this.toast.showWarning('上传失败', msg)
@@ -139,7 +161,7 @@ Page({
     async doUpload (file, signData) {
         const that = this
 
-        const typeMatch = file.match(/\.(\S{3,10})$/i)
+        const typeMatch = file.path.match(/\.(\S{3,10})$/i)
         const fileType = typeMatch ? typeMatch[0] : ''
 
         const tarFilePath = `/rm/upload/${randomName()}${fileType}`
@@ -148,7 +170,7 @@ Page({
 
         that.uploadTask = wx.uploadFile({
             url: global.modeConf.ossHost,
-            filePath: videoFileUrl,
+            filePath: file.path,
             name: 'file',
             formData: {
                 key: tarFilePath,
@@ -161,18 +183,16 @@ Page({
                 console.log('res', arguments[0])
 
                 if ("uploadFile:ok" == errMsg) {
-                    that.setData({
-                        refundVideo: `${global.modeConf.ossHost}/${tarFilePath}`,
-                        uploadProgress: -1
-                    })
+                    that.setData({ uploadProgress: -1 })
+                    this.uploadSuccess(file, tarFilePath, signData.taskId)
                 } else {
-                    that.toast.showFailure(errMsg || '上传视频失败 请稍后重试!')
+                    that.toast.showFailure(errMsg || '上传失败 请稍后重试!')
 
                     that.setData({ uploadProgress: -1 })
                 }
             },
             fail ({errMsg}) {
-                that.toast.showFailure(errMsg || '上传视频失败 请稍后重试!')
+                that.toast.showFailure(errMsg || '上传失败 请稍后重试!')
 
                 that.setData({ uploadProgress: -1 })
             }
@@ -187,6 +207,22 @@ Page({
 
     abortUpload () {
         this.uploadTask.abort()
+    },
+
+    async uploadSuccess (fileInfo, ossPath, taskId) {
+        const { docPathStack } = this.data
+        const { code, data, msg } = await User.upload({ 
+            parent: docPathStack,
+            filename: fileInfo.name,
+            fileUrl: ossPath,
+            taskId: taskId
+        })
+
+        if ( code !== 0 ) {
+            return this.toast.showFailure('上传失败', msg)
+        } else {
+            return this.toast.showSuccess('上传成功 开始同步', '可以到任务管理查看同步任务进度')
+        }
     },
 
     async onRefreshDoding () {
@@ -266,13 +302,17 @@ Page({
             alertText: `文件《${item.name}》`,
             itemList: ['下载', '分享', '删除'],
             success ({ tapIndex }) {
-                that.clickAudio.play()
-
                 if (tapIndex === 0) {
+                    that.clickAudio.play()
+
                     that.downloadDoc(item)
                 } else if (tapIndex === 1) {
+                    that.clickAudio.play()
+
                     that.shareDoc(item)
                 } else if (tapIndex === 2) {
+                    that.removeAudio.play()
+
                     that.toast.showFailure('无法删除', '出于安全考虑不提供删除功能 请到设备操作')
                 }
             }
@@ -289,9 +329,11 @@ Page({
         if (!item.children) return false
 
         docListStack.push(docList)
-        docPathStack.push(item.name)
 
-        this.setData({ docList: item.children, docListStack, docPathStack })
+        const pathArr = docPathStack.split('/')
+        pathArr.push(item.name)
+
+        this.setData({ docList: item.children, docListStack, docPathStack: pathArr.join('/') })
     },
 
     onFolderBack () {
@@ -300,9 +342,11 @@ Page({
         const { docListStack, docPathStack } = this.data
 
         const docList = docListStack.pop()
-        docPathStack.pop()
+        
+        const pathArr = docPathStack.split('/')
+        pathArr.pop()
 
-        this.setData({ docList, docListStack, docPathStack, search: '' })
+        this.setData({ docList, docListStack, docPathStack: pathArr.join('/'), search: '' })
     },
 
     async downloadDoc (item) {

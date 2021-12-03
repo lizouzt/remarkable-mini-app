@@ -50,7 +50,7 @@ page, .container{
   width: 100%;
   overflow: hidden;
   position: relative;
-  margin: 5vw 0 1vw !important;
+  padding: 2vw 0 1vw!important;
   z-index: 1;
 }
 .f-head image{
@@ -62,7 +62,7 @@ page, .container{
 }
 
 .fh-tip{
-  font-size: 22rpx;
+  font-size: 16rpx;
   color: #fff;
   text-align: center;
 }

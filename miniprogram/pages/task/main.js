@@ -19,6 +19,7 @@ Page({
         
         // 静态数据
         TaskStateMap: ['进行中', '已完成', '已失败'],
+        TaskTypeMap: ['上传', '下载'],
     },
     async onLoad () {
         this.toast = this.selectComponent("#toast")
@@ -40,11 +41,7 @@ Page({
         
         wx.showNavigationBarLoading()
 
-        const { code, msg, data: {list, page_size, page_num: resPageNum} = {} } = await User.queryTask({ 
-            type: 0, 
-            page_num: pageNum,
-            last: pageNum == 1 ? '' : last,
-        })
+        const { code, msg, data: {list, page_size, page_num: resPageNum} = {} } = await User.queryTaskList({ page_num: pageNum })
 
         if (code != 0) {
             return this.toast.showFailure(msg)

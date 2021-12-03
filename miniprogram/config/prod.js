@@ -2,5 +2,5 @@ import baseConfig from './base'
 
 module.exports = {
   ...baseConfig,
-  host: "https://apps.yowubuy.com",
+  host: "https://rmcloud.yowubuy.com/rmapi/ui",
 }
