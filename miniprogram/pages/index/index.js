@@ -147,7 +147,7 @@ Page({
     },
 
     async getOssSign (fileInfo) {
-        const { code, msg, data } = await User.getOssToken({file: fileInfo})
+        const { code, msg, data } = await User.getOssToken({name: fileInfo.name})
         
         if (code !== 0) {
             this.toast.showWarning('上传失败', msg)
