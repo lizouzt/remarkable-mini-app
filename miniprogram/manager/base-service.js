@@ -65,7 +65,8 @@ export default class BaseService {
             if (data.status && data.status.state == 5) {
               clearUser()
               wx.hideNavigationBarLoading()
-              wx.switchTab({ url: '/pages/mine/index' })
+
+              setTimeout(() => wx.reLaunch({ url: '/pages/mine/index' }), 2e3)
             } else {
               if (!data.status) {
                 if (data.constructor == String) {
@@ -79,10 +80,10 @@ export default class BaseService {
                   msg: data.error || errMsg
                 }
               }
-
-              data = transformResObj(data)
-              isAsync ? resolve({ ...data, header }) : reject({ ...data, header })
             }
+
+            data = transformResObj(data)
+            isAsync ? resolve({ ...data, header }) : reject({ ...data, header })
           }
         }
       }))

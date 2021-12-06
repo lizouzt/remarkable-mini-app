@@ -11,7 +11,6 @@ export default class DeviceService extends BaseService {
         return await this.callFunction('user', 'getUserId')
     }
     async getCode(options) {
-        // return { code: 0, msg: 'ok', data: { code: '1231kh23kjh1k23h' } }
         return await this.request({
             url: '/api/newcode',
             method: 'post',
