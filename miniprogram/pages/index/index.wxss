@@ -12,6 +12,18 @@ page, .container{
   overflow: hidden;
 }
 
+/** 夜间模式 */
+.dark .doc-list{
+  background-color: #353535
+}
+.dark .doc-path{
+  background-color: #353535
+}
+.dark .hn-ctl{
+  color: #555;
+}
+/** 夜间模式 Done */
+
 .hn-bar{
   padding: 0 2vw;
   justify-content: flex-start;

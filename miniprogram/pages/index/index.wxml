@@ -60,7 +60,7 @@
         inline 
         width="16vw"
         size="small"
-        type="ghost" 
+        type="trans" 
         bindtap="onFolderBack" 
         border="{{false}}">
         <mIcon type="return" size="16"/>
@@ -73,7 +73,7 @@
       inline 
       width="16vw"
       size="small"
-      type="ghost" 
+      type="trans" 
       border="{{false}}">
       <mIcon type="homepage" size="16"/> /
     </mButton>

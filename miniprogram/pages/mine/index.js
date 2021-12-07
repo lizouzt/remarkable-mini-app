@@ -17,11 +17,15 @@ Page({
 
     userInfo: null,
 
+    theme: 'light',
+
     navHeight: global.deviceInfo.navHeight,
   },
   copyText: copyText,
   onLoad (options) {
     // wx.hideShareMenu({menus: ['shareAppMessage', 'shareTimeline']})
+    this.setData({ theme: global.deviceInfo.theme })
+
     this.toast = this.selectComponent("#toast")
 
     this.clickAudio = getBtnAudioCtx('/images/audio/click.mp3')

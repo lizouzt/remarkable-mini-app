@@ -29,7 +29,7 @@ Page({
         pageNum: 1,
         end: false,
 
-        theme: 'light',
+        theme: 'dark',
         navHeight: 66,
         navBgShow: false,
         fixedContentHeight: 360,
@@ -164,7 +164,7 @@ Page({
         const typeMatch = file.path.match(/\.(\S{3,10})$/i)
         const fileType = typeMatch ? typeMatch[0] : ''
 
-        const tarFilePath = `/rm/upload/${randomName()}${fileType}`
+        const tarFilePath = `rm/upload/${randomName()}${fileType}`
 
         that.setData({ uploadProgress: 0 })
 

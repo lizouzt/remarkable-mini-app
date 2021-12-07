@@ -7,6 +7,13 @@ page{
     padding-bottom: 52px;
 }
 
+.dark .checkout-item{
+    background-color: transparent;
+}
+.dark .checkout-row{
+    background-color: transparent;
+}
+
 .checkout-row{
     background: #fff;
     font-size: 3.6vw;
@@ -82,7 +89,12 @@ page{
 }
 
 .checkout-footer button{
-    background: linear-gradient(to bottom right, #0077b6, #48cae4) !important;
+   /* background: -webkit-gradient( linear, left top, right top, 
+        color-stop(0, #91ffab), 
+        color-stop(0.15, #91ffab),  
+        color-stop(0.45, #10a934), 
+        color-stop(0.75, #10a934), 
+        color-stop(1, #91ffab) ) !important;*/
     box-shadow: none;
     color: #fff !important;
     font-size: 4w;

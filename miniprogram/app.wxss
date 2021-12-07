@@ -24,3 +24,7 @@ page {
   padding-bottom: 48px;
   margin-bottom: env(safe-area-inset-bottom);
 }
+.container.dark{
+  color: #fff;
+  background-color: #232323;
+}

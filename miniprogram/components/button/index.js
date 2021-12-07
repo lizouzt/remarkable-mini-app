@@ -2,7 +2,7 @@ Component({
     externalClasses: ['mclass'],
 
     properties: {
-        // default, primary, ghost, info, success, warning, error
+        // default, primary, ghost, trans, info, success, warning, error
         type: {
             type: String,
             value: '',

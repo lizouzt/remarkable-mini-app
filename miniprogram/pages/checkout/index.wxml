@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container {{ theme }}">
         <view class="checkout-phone m-panel m-flex {{(showPhoneAuth) ? '' : 'hide'}}">
             <view class="c-p-tip">请绑定收单手机号</view>
             <mButton mclass="c-p-btn"
@@ -48,7 +48,6 @@
             </view>
             <view>
                 <mCheckbox position="right" 
-                    color="#d3381c"
                     checked="{{useCoupon}}" 
                     disabled="{{isLoading || couponList.length == 0}}"
                     bindchange="updateUseCoupon"/>
@@ -71,7 +70,6 @@
                 </navigator>
             </view>
             <mCheckbox
-                color="#d3381c"
                 size="small"
                 checked="{{contractAgree}}"
                 bindchange="onUpdateAgreeCoupon"/>
@@ -81,6 +79,7 @@
     <view class="checkout-footer">
         <mButton 
             shape="circle"
+            type="warning"
             loading="{{buyLoading}}"
             bindtap="payRequest">
             <view>

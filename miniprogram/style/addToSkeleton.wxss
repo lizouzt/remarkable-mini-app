@@ -5,7 +5,9 @@
   visibility: visible
 }
 
-
+.dark .m-sk{
+  background-color: #656565;
+}
 .m-sk{
   box-shadow: 0 0 2px #ececec;
   border-radius: 10px;

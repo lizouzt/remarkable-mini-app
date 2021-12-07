@@ -1,6 +1,6 @@
 <mNav 
   alwaysShow 
-  transparent="{{!navBgShow}}">
+  bgColor="{{!navBgShow ? 'transparent' : ( theme === 'dark' ? '#191919' : '#fff' )}}">
   <view class="h-nav m-flex {{navBgShow ? 'active' : ''}}">
     <view class="mh-avatar">
       <image src="/images/logo.png"/>
@@ -9,7 +9,7 @@
   </view>
 </mNav>
 
-<view class="container" style="padding-top: {{navHeight}}px">
+<view class="container {{theme}}" style="padding-top: {{navHeight}}px">
   <view class="m-header">
     <image src="/images/theme/banner.png" />
     <view class="mh-info">
@@ -224,16 +224,6 @@
         <view>4. 等待设备链接 使用服务</view>
       </view>
     </view>
-  </view>
-
-  <view class="m-panel">
-    <Uploader
-      list="{{photos}}"
-      path="applyImg"
-      multiple
-      bindRemove="uploadRemoveImage"
-      bindUploaded="uploadedImage"
-      bindError="uploadError"/>
   </view>
 
 </view>

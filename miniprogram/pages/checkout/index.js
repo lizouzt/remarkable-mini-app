@@ -20,7 +20,9 @@ Page({
         settleInfo: null,
         pre_order_id: null,
 
-        items: [{ id: '5d0b100306f78330f6a509d0', amount: 1 }, { id: '61a0ac64968c49326c3c0fa6', amount: 1 }],
+        theme: 'light',
+
+        items: [],
         exchangeUnit: global.modeConf.exchangeUnit,
         skRegion: {
             init: true
@@ -30,6 +32,10 @@ Page({
      * 生命周期函数--监听页面加载
      */
     async onLoad (options) {
+        // wx.hideShareMenu({menus: ['shareAppMessage', 'shareTimeline']})
+        
+        this.setData({ items: global.vipItems, theme: global.deviceInfo.theme })
+
         this.toast = this.selectComponent("#toast")
         const loginSucceed = await global.doLogin()
 

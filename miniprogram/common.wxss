@@ -18,6 +18,10 @@
   overflow: hidden;
 }
 
+.dark .m-panel{
+  background-color: #353535;
+}
+
 .m-bshadow{
   box-shadow: 0 0 3rpx #00000030;
 }

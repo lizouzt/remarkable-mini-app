@@ -62,8 +62,12 @@
     box-shadow: none !important;
 }
 
+.i-btn-trans {
+    color: inherit !important;
+    background-color: transparent !important;
+}
+
 .i-btn-ghost {
-    color: #fff !important;
     background: #fff !important;
     color: #495060 !important;
 }

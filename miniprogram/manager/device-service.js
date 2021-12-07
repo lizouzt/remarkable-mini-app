@@ -29,12 +29,14 @@ export default class DeviceService extends BaseService {
 
         return await this.request({
             url: '/api/documents',
+            method: 'POST',
             data: options
         })
     }
     async download(options) {
         return await this.request({
             url: '/api/download',
+            method: 'POST',
             data: options
         })
     }

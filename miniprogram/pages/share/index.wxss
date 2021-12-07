@@ -1,0 +1,33 @@
+.m-header image{
+  display: block;
+  margin: 0 auto;
+}
+
+.mh-link{
+  display: inline-block;
+  float: right;
+}
+.mh-link mIcon{
+  margin: 1px 0;
+}
+.mh-info{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-radius: 20rpx;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  padding: 30rpx 5vw 10rpx;
+}
+
+.mh-info view:first-child{
+  font-size: 36rpx;
+  color: #3B353E;
+  font-weight: 900;
+}
+
+.mh-info view:nth-child(n+2){
+  color: #b8b6ce;
+  margin-top: 13rpx;
+  font-size: 25rpx;
+}
