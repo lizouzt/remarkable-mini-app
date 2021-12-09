@@ -79,4 +79,11 @@ export default class UserService extends BaseService {
             data: options
         })
     }
+    async receiveFile(options) {
+        return await this.request({
+            url: '/api/share',
+            method: 'POST',
+            data: options
+        })
+    }
 }

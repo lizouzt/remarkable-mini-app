@@ -1,36 +1,33 @@
 <view class="container {{theme}}">
   <view class="m-header">
     <image src="/images/theme/banner.png" />
-    <view class="mh-info">
-      <view class="elps-1">云服务助手</view>
-      <view class="elps-1">
-        私有云服务助手 隐私、安全、高效
-        <navigator 
-          hover-class="m-link-silence"
-          open-type="navigate"
-          class="mh-link"
-          url="/pages/webpage/index?url=https://apps.yowubuy.com/rental/viewer.html?p=https://rental-rexue.oss-cn-beijing.aliyuncs.com/pros/privacy.jpg">
-          隐私<mIcon type="prompt" size="16" weight="600" color="#aaa"/>
-        </navigator>
-      </view>
-    </view>
   </view>
   
   <view class="m-sec">
-    <view class="m-s-title m-flex">
-      <view>文件接收</view>
-    </view>
-    <view class="m-s-list">
-      <view class="m-s-item">
-        <view>朋友分享文件</view>
-        <view>《云服务会员》</view>
+    <view class="m-s-title m-start m-flex">
+      <view wx:if="{{avatar}}" class="m-avatar">
+        <image src="{{avatar}}"/>
       </view>
-      <view class="m-s-list">
-        <view class="m-sk rect10"></view>
+      <view>@{{nick}} 给你分享了一个文件</view>
+    </view>
+    <view class="m-s-list m-b2">
+      <view class="m-s-item">
+        <view>文件名</view>
+        <view class="elps-1">《{{ docName }}》</view>
+      </view>
+      <view class="m-s-item">
+        <view>分享时间</view>
+        <view class="elps-1">{{ date }}</view>
       </view>
     </view>
     <view class="m-t2">
-      <mButton type="primary" shape="circle" >点击接收到设备</mButton>
+      <mButton 
+        type="primary" 
+        loading="{{receiving}}"
+        bindtap="receiveFile" 
+        shape="circle">
+        确认接收
+      </mButton>
     </view>
   </view>
 </view>

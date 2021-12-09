@@ -18,7 +18,7 @@ Page({
         taskList: [],
         
         // 静态数据
-        TaskStateMap: ['进行中', '已完成', '已失败'],
+        TaskStateMap: ['排队中', '进行中', '已完成', '已失败'],
         TaskTypeMap: ['上传', '下载'],
     },
     async onLoad () {

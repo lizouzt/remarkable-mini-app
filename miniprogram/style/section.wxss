@@ -4,6 +4,9 @@
 .dark .m-s-title > view:first-child{
   color: #fff;
 }
+.dark .m-s-item > view:nth-child(2){
+  color: #eee
+}
 
 .m-sec {
   background: #fff;

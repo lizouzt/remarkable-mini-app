@@ -352,7 +352,7 @@ Page({
     async downloadDoc (item) {
         this.toast.showLoading()
 
-        const { code, data, msg } = await Device.download({ documentid: item.id })
+        const { code, data, msg } = await Device.download({ documentid: item.id, filename: item.name })
 
         if (code == 0) {
             this.toast.showSuccess('成功创建任务', '请到任务列表查看下载进度')
@@ -423,7 +423,7 @@ Page({
 
             return {
                 title: `${userInfo.nick}给你分享了《${showShareDrawBox.item.name}》`,
-                path: `/pages/share/index?name=${showShareDrawBox.item.name}&id=${showShareDrawBox.item.id}&uid=${userInfo.openid}`
+                path: `/pages/share/index?code=${showShareDrawBox.code}&name=${showShareDrawBox.item.name}&id=${showShareDrawBox.item.id}&uid=${userInfo.openid}&avatar=${userInfo.avatar}&nick=${userInfo.nick}&date=${Date.now()}`
             }
         } else {
             return {

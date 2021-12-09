@@ -20,14 +20,8 @@
   padding: 30rpx 5vw 10rpx;
 }
 
-.mh-info view:first-child{
-  font-size: 36rpx;
-  color: #3B353E;
-  font-weight: 900;
-}
-
-.mh-info view:nth-child(n+2){
-  color: #b8b6ce;
-  margin-top: 13rpx;
-  font-size: 25rpx;
+.m-s-title .m-avatar{
+  width: 10vw;
+  height: 10vw;
+  margin-right: 3vw;
 }
