@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/share/index",
     "pages/index/index",
+    "pages/share/index",
     "pages/mine/index",
     "pages/task/main",
     "pages/orderList/main",
