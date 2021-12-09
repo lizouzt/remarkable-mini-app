@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/share/index",
     "pages/mine/index",
+    "pages/share/index",
     "pages/task/main",
     "pages/orderList/main",
     "pages/checkout/index",

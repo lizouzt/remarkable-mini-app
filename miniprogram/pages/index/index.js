@@ -131,9 +131,13 @@ Page({
             async success (res) {
                 const [ tempFilePaths ] = res.tempFiles
                 console.log('tempFilePaths', tempFilePaths)
-
+                
                 if (tempFilePaths.size / 1e6 > 200) {
                     return that.toast.showWarning('文件大小超限', '微信最大支持同步200MB的文件')
+                }
+
+                if (/\.(pdf|epub)$/.test(tempFilePaths.path) == false) {
+                    return that.toast.showWarning('文件类型错误', '只支持上传 PDF 或 Epub 文件')
                 }
 
                 const ossSignData = await that.getOssSign(tempFilePaths)
@@ -141,7 +145,21 @@ Page({
                 ossSignData && that.doUpload(tempFilePaths, ossSignData)
             },
             fail (error) {
-                that.toast.showFailure(error.errMsg || error.message)
+                if (!/cancel/.test(error.errMsg)) {
+                    that.toast.showFailure(error.errMsg || error.message)
+                }
+            }
+        })
+    },
+
+    getFileCheck ({ path }) {
+        wx.getFileInfo({
+            filePath: path,
+            success (res) {
+                console.log(res)
+            },
+            fail (err) {
+                console.log(err)
             }
         })
     },

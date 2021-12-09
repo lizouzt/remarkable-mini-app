@@ -179,6 +179,7 @@ Page({
         wx.requestPayment({
             ...payParams,
             success: (res) => {
+                this.makeSubscribe()
                 this.createRequest()
             },
             fail: function ({ err_code, err_desc, errMsg }) {
@@ -212,6 +213,22 @@ Page({
         setTimeout(() => {
             wx.redirectTo({ url: '/pages/orderList/main' })
         }, time)
+    },
+    /** 续费成功通知消息 */
+    makeSubscribe () {
+        const tmplId = 'R6hV31kmkN5RPt7arEkXu_RokyF73Vau6K59MXTzGOY'
+
+        wx.requestSubscribeMessage({
+            tmplIds: [tmplId],
+            success (res) {
+                if (res.tmplId == 'accept') {
+                    /**
+                     * TODO::通知服务器 用户同意订阅
+                     */
+                }
+            },
+            fail (err) { console.log(err) }
+        })
     }
 })
 

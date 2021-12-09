@@ -151,56 +151,28 @@
       <navigator 
         hover-class="m-link-silence"
         open-type="navigate"
+        class="mh-item"
         url="/pages/checkout/index"
         wx:if="{{userInfo}}">
-        <mButton 
-          inline
-          size="small"
-          width="19vw"
-          type="primary"
-          mclass="mh-item"
-          padding="{{false}}">
-          <mIcon type="add" size="16"/>服务续费
-        </mButton>
+        <image src="/images/theme/buy-vip.jpg"/>
       </navigator>
       <navigator 
         hover-class="m-link-silence"
         open-type="navigate"
+        class="mh-item"
         url="/pages/orderList/main"
         wx:if="{{userInfo}}">
-        <mButton 
-          inline
-          size="small"
-          width="19vw"
-          type="primary"
-          mclass="mh-item"
-          padding="{{false}}">
-          <mIcon type="activity" size="16"/>购买记录
-        </mButton>
+        <image src="/images/theme/orders.jpg"/>
       </navigator>
-      <mButton 
-        inline
-        size="small"
-        width="19vw"
-        type="primary"
-        padding="{{false}}"
-        mclass="mh-item"
-        bindtap="openCustomService">
-        <mIcon type="customerservice" size="16"/>技术客服
-      </mButton>
+      <view class="mh-item" bindtap="openCustomService">
+        <image src="/images/theme/custum.jpg"/>
+      </view>
       <navigator 
         hover-class="m-link-silence"
         open-type="navigate"
+        class="mh-item"
         url="/pages/webpage/index?url=https://apps.yowubuy.com/viprule.html">
-        <mButton 
-          inline
-          size="small"
-          width="19vw"
-          type="primary"
-          mclass="mh-item"
-          padding="{{false}}">
-          <mIcon type="feedback" size="16"/>使用说明
-        </mButton>
+        <image src="/images/theme/instruction.jpg"/>
       </navigator>
     </view>
   </view>

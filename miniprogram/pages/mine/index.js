@@ -23,7 +23,7 @@ Page({
   },
   copyText: copyText,
   onLoad (options) {
-    // wx.hideShareMenu({menus: ['shareAppMessage', 'shareTimeline']})
+    wx.hideShareMenu({menus: ['shareAppMessage', 'shareTimeline']})
     this.setData({ theme: global.deviceInfo.theme })
 
     this.toast = this.selectComponent("#toast")
@@ -191,15 +191,6 @@ Page({
       this.toast.showFailure('删除失败 请重试')
     }
   },
-
-  /** 续费成功通知消息 */
-  makeSubscribe () {
-    wx.requestSubscribeMessage({
-      tmplIds: ['kRLRF0v97t3jQjuwcylidr-mcluhVw7gXICMUq9dOzQ'],
-      success (res) {console.log(res)},
-      fail (err) { console.log(err) }
-    })
-  }
 })
 
 

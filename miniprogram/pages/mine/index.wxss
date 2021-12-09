@@ -4,6 +4,11 @@ page {
   font-size: 14px;
 }
 
+.m-panel{
+  margin: 4vw;
+  padding: 2vw;
+}
+
 .h-nav{
   position: relative;
   filter: contrast(10%) brightness(10%);
@@ -108,7 +113,7 @@ page {
 
 .mh-nav{
   overflow: hidden;
-  padding: 0 12px;
+  padding: 2vw;
 }
 .mh-nav :nth-child(4n) .mh-item {
   margin-right: 0!important;
@@ -116,14 +121,19 @@ page {
 
 .mh-item{
   float: left;
-  font-size: 12px!important;
-  margin: 6px 2vw 6px 0!important;
-  /*border: 1rpx solid #eaeaea;*/
-  /*height: 20px;*/
-  /*padding: 2vw 3vw;*/
-  /*border-radius: 1vw;*/
+  border-radius: 2vw;
+  overflow: hidden;
+  width: 41vw;
+  height: 46vw;
+  margin-bottom: 2vw;
 }
-
+.mh-item:nth-child(odd){
+  margin-right: 2vw;
+}
+.mh-item image{
+  width: 100%;
+  height: 100%;
+}
 
 
 

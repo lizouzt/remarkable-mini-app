@@ -65,8 +65,8 @@ export default class BaseService {
             if (data.status && data.status.state == 5) {
               clearUser()
               wx.hideNavigationBarLoading()
-
-              setTimeout(() => wx.reLaunch({ url: '/pages/mine/index' }), 2e3)
+              global.message(data.status.msg || '无效登录')
+              setTimeout(() => wx.reLaunch({ url: '/pages/mine/index' }), 3e3)
             } else {
               if (!data.status) {
                 if (data.constructor == String) {
