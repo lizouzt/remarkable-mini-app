@@ -5,6 +5,8 @@ import {
 } from "../../common/utils"
 import { User } from "../../manager/api"
 
+const TEMP_FILE_MAP_CACHE_KEY = '_oss_temp_file_map_'
+
 Page({
     /**
      * TODO::
@@ -16,7 +18,7 @@ Page({
         end: false,     // 已加载完列表
         
         taskList: [],
-        taskFileTempPathMap: [],
+        taskFileTempPathMap: {},
         
         // 静态数据
         TaskStateMap: ['排队中', '进行中', '已完成', '已失败'],
@@ -25,9 +27,15 @@ Page({
     async onLoad () {
         this.toast = this.selectComponent("#toast")
 
+        const cacheData = wx.getStorageSync(TEMP_FILE_MAP_CACHE_KEY)
+        cacheData && this.setData({ taskFileTempPathMap: cacheData })
+
         await global.doLogin()
 
         await this.fetchData()
+    },
+    onUnload () {
+        wx.setStorageSync(TEMP_FILE_MAP_CACHE_KEY, this.data.taskFileTempPathMap)
     },
     openFile(event) {
         const { target: { dataset: { url, taskId } } } = event
