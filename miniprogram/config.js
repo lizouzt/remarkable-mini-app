@@ -30,6 +30,8 @@ export default Object.assign(sysData, {
     exchangeUnit: '¥',
     // 显示汇率
     exchangeRate: 1,
+    ossHost: "https://rmcloud.oss-cn-shanghai.aliyuncs.com",
+    vipItems: [{ id: '61aa3363feb304175c9f5855', amount: 1 }, { id: '61aa33c8feb304175c9f5856', amount: 1 }],
   },
   isMaster: (app="zm") => {
     return global.BorysAppsMaster[app] ? global.BorysAppsMaster[app].includes(global.openid) : false

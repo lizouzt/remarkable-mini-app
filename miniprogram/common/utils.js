@@ -24,6 +24,10 @@ export const copyText = ({ currentTarget: { dataset } }) => {
     });
 }
 
+export const randomName = () => {
+  return Date.now() + Math.floor(Math.random() * 1000)
+}
+
 /**
  * 按钮音效设置
  */

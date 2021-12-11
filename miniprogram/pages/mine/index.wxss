@@ -123,12 +123,12 @@ page {
   float: left;
   border-radius: 2vw;
   overflow: hidden;
-  width: 41vw;
-  height: 46vw;
-  margin-bottom: 2vw;
+  width: 20vw;
+  height: 23vw;
+  margin: 0 1.2vw 0 0;
 }
-.mh-item:nth-child(odd){
-  margin-right: 2vw;
+.mh-item:last-child{
+  margin-right: 0;
 }
 .mh-item image{
   width: 100%;

@@ -34,7 +34,7 @@ Page({
     async onLoad (options) {
         // wx.hideShareMenu({menus: ['shareAppMessage', 'shareTimeline']})
         
-        this.setData({ items: global.vipItems, theme: global.deviceInfo.theme })
+        this.setData({ items: global.modeConf.vipItems, theme: global.deviceInfo.theme })
 
         this.toast = this.selectComponent("#toast")
         const loginSucceed = await global.doLogin()

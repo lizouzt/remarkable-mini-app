@@ -91,10 +91,10 @@ global.doLogin = ({ user_info, refresh = false } = {}) => {
 }
 
 const initAppGlobalData = async () => {
-  // await global.getUserId()
-  // await global.getAppConfigure()
   getUser()
-
+  
+  // await global.getAppConfigure()
+  await global.getUserId()
   await global.doLogin({ refresh: true })
 }
 

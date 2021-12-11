@@ -31,12 +31,14 @@
         </view>
 
         <view class="ol-i-ctrl">
-            <mButton wx:if="{{task.state > 0}}"
-                data-index="{{index}}"
+            <mButton wx:if="{{ task.type == 1 && task.task_state == 2}}"
+                data-url="{{task.doc_url}}"
+                data-taskId="{{task.id}}"
+                bindtap="openFile"
                 margin="{{false}}"
                 size="small"
                 shape="circle">
-                操作
+                打开文件
             </mButton>
         </view>
     </view>

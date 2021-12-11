@@ -1,6 +1,3 @@
-const baseImgUrl = global.ossHost
-
-const genders = ['男士', '女士']
 
 const nativeErrorMessageTranslate = (errMsg, statusCode) => {
   let ret = errMsg
@@ -197,6 +194,8 @@ export const updateUser = (state = {}) => {
 
   wx.setStorageSync(_user_data_cache_key_, curUser)
 }
+
+const genders = ['男士', '女士']
 
 export const parseGender = (gender) => {
   return genders[gender]

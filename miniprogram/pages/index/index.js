@@ -1,5 +1,5 @@
 import { Device, User } from '../../manager/api'
-import { getBtnAudioCtx, sleep, getRelativeTime, copyText } from '../../common/utils'
+import { getBtnAudioCtx, randomName, sleep, getRelativeTime, copyText } from '../../common/utils'
 
 const formateDocItem = (list) => {
     return list.map((item, index) => ({
@@ -202,7 +202,7 @@ Page({
 
                 if ("uploadFile:ok" == errMsg) {
                     that.setData({ uploadProgress: -1 })
-                    this.uploadSuccess(file, tarFilePath, signData.taskId)
+                    that.uploadSuccess(file, tarFilePath, signData.taskId)
                 } else {
                     that.toast.showFailure(errMsg || '上传失败 请稍后重试!')
 
@@ -439,9 +439,15 @@ Page({
         if (from === 'button' && showShareDrawBox.item) {
             this.clickAudio.play()
 
+            if (!global.openid) {
+                return this.toast.showWarning('分享失败 请重新登录再试')
+            }
+
+            const shareUrl = `/pages/share/index?code=${showShareDrawBox.code}&name=${showShareDrawBox.item.name}&id=${showShareDrawBox.item.id}&uid=${global.openid}&avatar=${userInfo.avatar}&nick=${userInfo.nick}&date=${Date.now()}`
+
             return {
                 title: `${userInfo.nick}给你分享了《${showShareDrawBox.item.name}》`,
-                path: `/pages/share/index?code=${showShareDrawBox.code}&name=${showShareDrawBox.item.name}&id=${showShareDrawBox.item.id}&uid=${userInfo.openid}&avatar=${userInfo.avatar}&nick=${userInfo.nick}&date=${Date.now()}`
+                path: shareUrl
             }
         } else {
             return {

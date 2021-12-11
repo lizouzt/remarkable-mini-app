@@ -16,6 +16,7 @@ Page({
         end: false,     // 已加载完列表
         
         taskList: [],
+        taskFileTempPathMap: [],
         
         // 静态数据
         TaskStateMap: ['排队中', '进行中', '已完成', '已失败'],
@@ -27,6 +28,65 @@ Page({
         await global.doLogin()
 
         await this.fetchData()
+    },
+    openFile(event) {
+        const { target: { dataset: { url, taskId } } } = event
+
+        if (!url) {
+            return this.toast.showFailure('文件下载错误', '无下载链接 请确认任务状态')
+        }
+
+        const that = this
+
+        const { taskFileTempPathMap } = that.data
+
+        if (taskFileTempPathMap[taskId]) {
+            wx.openDocument({
+                filePath: taskFileTempPathMap[taskId],
+                fileType: 'pdf',
+                showMenu: true,
+                success: function (res) {
+                    console.log('打开文档成功')
+                },
+                fail: function () {
+                    taskFileTempPathMap[taskId] = false
+
+                    that.setData({ taskFileTempPathMap })
+                    // 走下载流程
+                    that.openFile(event)
+                }
+            })
+            return true
+        }
+
+        const downloadTask = wx.downloadFile({
+            url: url,
+            success (res) {
+                taskFileTempPathMap[taskId] = res.tempFilePath
+
+                that.setData({ taskFileTempPathMap })
+
+                wx.openDocument({
+                    filePath: res.tempFilePath,
+                    fileType: 'pdf',
+                    showMenu: true,
+                    success: function (res) {
+                        console.log('打开文档成功')
+                    },
+                    fail: function (err) {
+                        that.toast.showFailure('文件打开失败', err.errMsg || err.message)
+                    }
+                })
+            },
+            fail (err) {
+                that.toast.showFailure('文件下载失败', err.errMsg || err.message)
+            }
+        })
+
+        downloadTask.onProgressUpdate((res) => {
+            that.setData({ downloadProgress: res.progress })
+            that.toast.showLoading('文件下载中', res.progress + '%')
+        })
     },
     /**
      * 页面上拉触底事件的处理函数
