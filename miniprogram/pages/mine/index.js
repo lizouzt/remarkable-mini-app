@@ -23,6 +23,7 @@ Page({
   },
   copyText: copyText,
   onLoad (options) {
+    console.log('onload options', options)
     wx.hideShareMenu({menus: ['shareAppMessage', 'shareTimeline']})
     this.setData({ theme: global.deviceInfo.theme })
 

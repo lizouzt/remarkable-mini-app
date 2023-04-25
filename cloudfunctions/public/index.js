@@ -21,7 +21,7 @@ async function getUrlScheme(data = {}) {
     jumpWxa: {
       path: data.path, // <!-- replace -->
       query: data.query || '',
-      // envVersion: 'developer'
+      envVersion: data.envVersion || 'release'
     },
     // 如果想不过期则置为 false，并可以存到数据库
     isExpire: data.isExpire || true,

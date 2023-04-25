@@ -35,7 +35,8 @@ Page({
         fixedContentHeight: 360,
     },
     copyText: copyText,
-    async onLoad () {
+    async onLoad (options) {
+        console.log('page onload options', options)
         this.toast = this.selectComponent("#toast")
 
         const { navHeight, windowHeight, windowWidth, theme } = global.deviceInfo
